@@ -1,24 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="nav-bar">
-	<label class="logo">Nav </label>
-	<ul>
-		<li><a href='#'>One</a></li>
-		<li><a href='#'>Two</a></li>
-		<li><a href='#'>Three</a></li>
-		<li><a href='#'>Four</a></li>
-		<li><a href='#'>Five</a></li>
-	</ul> 
-</div>
-<div class="content-block">
-	<p> Hello </p>
-</div>
+<div class = "top-row">
+	<span style="float:left;margin:5px"> Example </span> 	
+	<div class = "flexbox-container"> 
+		<div class = "flexbox-item">One </div> 
+		<div class = "flexbox-item">Two </div> 
+		<div class = "flexbox-item">Three </div> 
+		<div class = "flexbox-item">Four </div> 
+	</div>
 
-<div class = "flexbox-container"> 
-	<div class = "flexbox-item">One </div> 
-	<div class = "flexbox-item">Two </div> 
-	<div class = "flexbox-item">Three </div> 
-	<div class = "flexbox-item">Four </div> 
+	<span style="float:right;width:30px"> i</span>
 </div>
 <p> hey </p> 
 {% endblock %}

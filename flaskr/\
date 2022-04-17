@@ -31,21 +31,17 @@ body {
 
 .flexbox-container {
 	display: flex;
-	align-items: end;
+	justify-content:flex-end;
 }
 
 .flexbox-item {
 	background:#87ceff;
 	border: 1px solid #005999;
-	border-radius: 4px;
-	padding: 5px;
-	flex-grow:1;
-	width: 90px;
-	height: 40px;
+	margin: 5px;
+	width: 100px;
+	height: 50px;
 	display: flex;
 	text-align:center;
-	align-items: center;
-	margin:auto; 
 }
 
 .flexbox-item:hover {
