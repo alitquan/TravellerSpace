@@ -1,0 +1,39 @@
+html {
+	font-family: san-serif;
+	background: #eee;
+	padding: 1rem;
+}
+
+body {
+	max-width: 960px;
+	margin: 0 auto;
+	background:white;
+}
+.content-block {
+	background:#87ceff;
+}
+
+.nav-bar {
+	display: table;
+}
+
+.nav-bar ul {
+	background:#87ceff;
+	list-style-type: none;
+	overflow:hidden;
+}
+.nav-bar li {
+	float:left;
+	padding:3px;
+}
+.flexbox-container {
+	display: flex;
+	width: 100px;
+}
+.flexbox-item {
+	background:#87ceff;
+	width: 20px;
+	height: 200px;
+	border: 3px solid;
+	text-align: right;
+}

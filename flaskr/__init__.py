@@ -25,8 +25,11 @@ def create_app(test_config=None):
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
-
+    
     from . import auth
     app.register_blueprint(auth.bp)
-
+    
+    from . import routes
+    app.register_blueprint(routes.bp)
+    app.add_url_rule('/',endpoint='index')
     return app
