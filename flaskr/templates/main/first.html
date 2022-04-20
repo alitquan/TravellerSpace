@@ -1,15 +1,59 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class = "top-row">
-	<span style="float:left;margin:5px"> Example </span> 	
-	<div class = "flexbox-container"> 
-		<div class = "flexbox-item">One </div> 
-		<div class = "flexbox-item">Two </div> 
-		<div class = "flexbox-item">Three </div> 
-		<div class = "flexbox-item">Four </div> 
+
+<div class = "flexbox">
+	<div class = "flexbox-log-container"> 
+		<span style="width:40%"> Space </span> 
+		{% if g.user%}
+		<div class = "flexbox-log-item">
+			{{g.user['username']}} 
+		</div>
+		<div class = "flexbox-log-item">
+			<a href="{{url_for('auth.logout')}}">Log Out </a> 
+		</div>
+		
+		{% else %}
+		<div class = "flexbox-log-item">
+			<a href="{{url_for('auth.register')}}">Register</a>
+		</div>
+		<div class = "flexbox-log-item">
+			<a href="{{url_for('auth.login')}}">Log In</a> 
+		</div>
+		{% endif %}
 	</div>
 
-	<span style="float:right;width:30px"> i</span>
+</div> 
+
+<div class = "flexbox">
+	<span style="width:60px"> Example </span> 	
+	<div class = "flexbox-nav-container"> 
+		<div class = "flexbox-nav-item">One </div> 
+		<div class = "flexbox-nav-item">Two </div> 
+		<div class = "flexbox-nav-item">Three </div> 
+		<div class = "flexbox-nav-item">Four </div> 
+	</div>
+
 </div>
-<p> hey </p> 
+
+<div class = "flexbox main-footer"> 
+	<div class = "footer-container">  
+		<div class = "row">
+			<div class = "column">
+				Hey
+			</div>
+			
+			<div class = "column">
+				Who
+			</div>
+			<div class = "column">
+				Hello
+			</div>
+			<div class = "column">
+				What
+			</div>
+				
+		</div>
+	</div>
+</div>
+
 {% endblock %}
