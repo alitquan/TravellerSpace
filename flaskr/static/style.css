@@ -75,10 +75,13 @@ body,html {
 
 .slideshow {
 	background-color: pink;
+	display:flex;
+	justify-content:center;
 }
 
 .slideshow-container {
-	justify-content: center;
+	display:flex;
+	justify-content:center;
 }
 
 .slide {
@@ -89,8 +92,13 @@ body,html {
 	animation-name: fade;
   	animation-duration: 1.5s;
 }
-.prev-next-slide {
-	margin: 0 auto;
+.prev-next-slider{
+	margin-top: 10px;
+	margin-bottom: 5px;
+	display: flex;
+	background-color:yellow;
+	justify-content: space-between;
+
 }
 /* Next & previous buttons */
 .prev, .next {
@@ -104,14 +112,15 @@ body,html {
   	transition: 0.6s ease;
   	border-radius: 0 3px 3px 0;
   	user-select: none;
+	display: flex;
+	background-color:blue;
 }
 
 .prev {
-	float: left; 
+	margin-right: 20px;
 }
 /* Position the "next button" to the right */
 .next {
-	float: right;
   	border-radius: 3px 0 0 3px;
 }
 
