@@ -73,6 +73,17 @@ body,html {
 	transform: translateY(-50%);
 }
 
+.features {
+	justify-content: center;
+	margin-top:30px;
+}
+.features-container {
+	background: white;
+	width: 95%;
+}
+.feature{
+	height: 30%;
+}
 .main-footer {
 	justify-content: center;
 	margin-top: 30px;
@@ -96,9 +107,12 @@ body,html {
 	flex-direction: column;
 	flex-basis: 100%;
 	flex: 1;
+	background-color:red;
+	justify-content:center;
+	align-items:center;
 }
 
-.column p {
+.column a {
 	color: black;
 }
 
