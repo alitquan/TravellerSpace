@@ -77,6 +77,7 @@ body,html {
 	background-color: pink;
 	display:flex;
 	justify-content:center;
+	flex-direction:column;
 }
 
 .slideshow-container {
@@ -92,14 +93,16 @@ body,html {
 	animation-name: fade;
   	animation-duration: 1.5s;
 }
+
 .prev-next-slider{
 	margin-top: 10px;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 	display: flex;
 	background-color:yellow;
 	justify-content: space-between;
 
 }
+
 /* Next & previous buttons */
 .prev, .next {
   	cursor: pointer;
@@ -119,6 +122,7 @@ body,html {
 .prev {
 	margin-right: 20px;
 }
+
 /* Position the "next button" to the right */
 .next {
   	border-radius: 3px 0 0 3px;
@@ -130,21 +134,41 @@ body,html {
 }
 
 .slideshow-dots {
-	text-align: center;
-	position: relative;
+	display:flex; 
+	text-align: center; 
+	background-color:black;
+	justify-content:center;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+	background-color: #717171
 }
 
 .features {
 	justify-content: center;
 	margin-top:30px;
 }
+
 .features-container {
 	background: white;
 	width: 95%;
 }
+
 .feature{
 	height: 30%;
 }
+
 .main-footer {
 	justify-content: center;
 	margin-top: 30px;
