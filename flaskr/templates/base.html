@@ -1,13 +1,14 @@
 <!doctype html>
-
-<title> 
-	{% block title %}
-	{% endblock %}
-	- Flaskr 
-</title>
-
-<link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
-
+<head>
+	<title> 
+		{% block title %}
+		{% endblock %}
+		- Flaskr 
+	</title>
+	<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"> </link>
+	<script src="../static/js/functions.js"> 
+	{% block head %} {% endblock %} 
+</head>
 <section class = "content">
 	<header>
 		{% block header %} {% endblock %}
