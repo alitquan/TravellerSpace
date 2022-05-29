@@ -27,6 +27,7 @@ body,html {
 	align-items: end;
 	float: left;
 	width:100%;
+	padding-bottom:30px;
 }
 
 .flexbox-nav-item {
@@ -74,6 +75,7 @@ body,html {
 }
 
 .slideshow {
+	padding-top: 20px;
 	background-color: pink;
 	display:flex;
 	justify-content:center;
@@ -83,10 +85,13 @@ body,html {
 .slideshow-container {
 	display:flex;
 	justify-content:center;
+	flex-direction:column;
 }
 
 .slide {
 	display:none;
+	margin: 0 auto;
+	margin-top: 20px; 
 }
 
 .fade {
@@ -99,8 +104,7 @@ body,html {
 	margin-bottom: 10px;
 	display: flex;
 	background-color:yellow;
-	justify-content: space-between;
-
+	justify-content: space-around;
 }
 
 /* Next & previous buttons */
@@ -138,6 +142,17 @@ body,html {
 	text-align: center; 
 	background-color:black;
 	justify-content:center;
+}
+
+.slider-image {
+	width:500px;
+	height:500px;
+
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }
 
 .dot {

@@ -2,6 +2,7 @@
 
 {% block head %} 
 	<script src="../../static/js/functions.js"> </script> 
+
 {% endblock %}
 
 {% block content %}
@@ -101,5 +102,11 @@
 		</div>
 	</div>
 </div>
+<script>
+	let slides = document.getElementsByClassName("slide");
+	slides[0].style.display="block";
+	console.log("poopatini");
+	autoSlide();
+</script>
 
 {% endblock %}
