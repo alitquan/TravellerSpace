@@ -181,12 +181,14 @@ body,html {
 }
 
 .feature{
-	height: 30%;
+	height: 15em;
+	width: 60%;
 }
 
 .main-footer {
 	justify-content: center;
 	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 .footer-container {
