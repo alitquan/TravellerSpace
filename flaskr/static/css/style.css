@@ -42,7 +42,6 @@ body,html {
 }
 
 
-
 .flexbox-nav-item:hover {
 	border: 3px solid;
 }
@@ -72,6 +71,32 @@ body,html {
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+.welcome-login-container {
+	display:flex; 
+	flex-direction: row;
+	width: 90%;
+	height: 20em;
+	background-color:violet;
+	margin-bottom: 2em;
+	align-items: flex-start;
+}
+
+.login-greeting {
+	height:100%;
+	width:50%;
+	background-color:white;
+}
+
+.login-form {
+}
+
+
+.login-container {
+}
+
+.login-item {
 }
 
 .slideshow {
