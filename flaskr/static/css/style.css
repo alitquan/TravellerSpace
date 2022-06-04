@@ -73,30 +73,49 @@ body,html {
 	transform: translateY(-50%);
 }
 
-.welcome-login-container {
-	display:flex; 
-	flex-direction: row;
-	width: 90%;
-	height: 20em;
+.login-space {
 	background-color:violet;
-	margin-bottom: 2em;
-	align-items: flex-start;
+	width: 90%;
+	height: 20em; 
+	margin: 0 auto;
+	margin-bottom: 2em; 	
+	display:flex; 
+	justify-content: center;
 }
 
-.login-greeting {
-	height:100%;
-	width:50%;
-	background-color:white;
+.login-column {
+	flex: 50%;
 }
 
-.login-form {
+.login-form { 
+	display: flex;
+	justify-content: center;
+	align-items: center; 
+}
+
+.login-body {
+	background-color: indigo;
+	background:indigo;
+	border-radius: 5px;
+	display: flex;  
+	flex-direction: column;
+	padding: 1.5em 0 0 1em;
+	margin: 0 1em;
+}
+
+.login-body p {
+	color: white;
+	font-size: 12px;	
 }
 
 
-.login-container {
-}
+.login-field {
+	display: flex;
+	margin-bottom: 2rem;
+} 
 
-.login-item {
+.login-field input {
+	width: 50%;
 }
 
 .slideshow {

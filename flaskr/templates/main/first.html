@@ -33,6 +33,7 @@
 
 <div class = "flexbox">
 	<span style="width:60px"> Example </span> 	
+
 	<div class = "flexbox-nav-container"> 
 		<div class = "flexbox-nav-item">One </div> 
 		<div class = "flexbox-nav-item">Two </div> 
@@ -42,26 +43,28 @@
 
 </div>
 
-<div class = "flexbox" style = "justify-content:center"> 
-	<div class = "welcome-login-container">
-		<div class = "login-greeting"> 
-			doo doo
-		</div>
 
-		<div class = "login-form"> 
-			<div class = "login-container">
-				<div class = "login-item">
-					Field One
-				</div>
-
-				<div class = "login-item">
-					Field Two
-				</div> 
-			</div> 
-		</div> 
+<div class = "login-space"> 
+	<div class = "login-column"> 
 
 	</div>
-</div>
+	<div class = "login-column login-form" style = "background-color:white"> 
+		<div class = "login-body">
+		<form action="" method="post" class="form form-login">
+			<div class = "login-field"> 
+				<label class="user" for="login-username"><span class="hidden"><p> Username </p> </span></label>
+				<input id="login-username" type="text" class="form-input" placeholder="Username" required>
+			</div>
+
+			<div class = "login-field"> 
+				<label class="lock" for="login-password"><span class="hidden"><p>Password</p></span></label>
+			          <input id="login-password" type="password" class="form-input" placeholder="Password" required>
+			</div>
+		</form> 
+		</div> 
+	</div> 
+</div> 
+
 
 <div class = "flexbox slideshow"> 
 	<div class = "slideshow-container">
