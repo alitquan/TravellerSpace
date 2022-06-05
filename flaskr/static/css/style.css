@@ -96,10 +96,11 @@ body,html {
 .login-body {
 	background-color: indigo;
 	background:indigo;
+	width: 60%;
 	border-radius: 5px;
 	display: flex;  
 	flex-direction: column;
-	padding: 1.5em 0 0 1em;
+	padding: 1.5em 0 0 2em;
 	margin: 0 1em;
 }
 
@@ -117,6 +118,12 @@ body,html {
 .login-field input {
 	width: 50%;
 }
+
+#login-submit {
+	  border-radius: 0.25rem;
+	  background-color: #8d36ff;  
+}
+
 
 .slideshow {
 	padding-top: 20px;
