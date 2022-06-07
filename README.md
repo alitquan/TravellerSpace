@@ -1,2 +1,2 @@
 # TravellerSpace
-Flask-Based Web App
+Flask-Based web app that is currently in development.
