@@ -12,3 +12,7 @@ bp = Blueprint ('routes',__name__)
 @bp.route('/')
 def index():
     return render_template('main/first.html') 
+
+@bp.route('/register')
+def reg():
+    return render_template('auth/registration.html')

@@ -68,8 +68,9 @@
 			        <input id="login-password" type="password" class="form-input" placeholder="Password" required>
 			</div>
 
-			<div class = "login-field">
+			<div class = "login-field login-register">
 				<input id="login-submit" type="submit" value="login">
+				<a id="register-option"  href="{{url_for('routes.reg')}}" > Don't have an account? Register </a>
 			</div> 
 
 		</form> 
@@ -90,18 +91,17 @@
 			<img src = "static/images/slide3.jpeg" class = "slider-image"> 
 
 		</div> 
-		
-		<div class = "prev-next-slider"> 
-			<div class= "prev" onClick= "slideTrans(-1)"> &#10094 </div>
-			<div class= "next" onClick= "slideTrans(+1)"> &#10095 </div>
+
+
+		<div class = "slideshow-dots"> 
+		 <span class="dot" onclick="currentSlide(1)"></span>
+			 <span class="dot" onclick="currentSlide(2)"></span>
+			 <span class="dot" onclick="currentSlide(3)"></span>
 		</div>
+
+		
 	</div>
 
-	<div class = "slideshow-dots"> 
-		 <span class="dot" onclick="currentSlide(1)"></span>
-		 <span class="dot" onclick="currentSlide(2)"></span>
-		 <span class="dot" onclick="currentSlide(3)"></span>
-	</div>
 </div>
 
 <div class = "flexbox features">

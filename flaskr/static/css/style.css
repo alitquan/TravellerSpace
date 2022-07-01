@@ -118,14 +118,25 @@ body,html {
 	margin-bottom: 2rem;
 } 
 
+
 .login-field input {
 	width: 50%;
+}
+
+.login-register {
+	flex-direction: column;
+	align-items: center;
 }
 
 #login-submit {
 	border-radius: 0.25rem;
 	background-color: #8d36ff;  
 	margin: 0 auto;
+}
+
+#register-option {
+	font-size:12px;	
+	margin-top: 1em;
 }
 
 
