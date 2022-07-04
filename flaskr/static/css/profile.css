@@ -1,0 +1,20 @@
+.profile-container { 
+	display: flex;
+	flex-direction: row;
+}
+#navigator {
+	color:yellow;
+	width: 15%;
+	display:block;
+}
+
+#navigator li {
+	list-style-type:none; 
+}
+.section-content {
+	background-color:orange;
+	width :50%;
+}
+#toggleNav {
+	color:red;
+}
