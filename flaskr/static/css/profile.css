@@ -1,11 +1,13 @@
 .profile-container { 
 	display: flex;
 	flex-direction: row;
+	min-height:15em;
 }
 #navigator {
 	color:yellow;
 	width: 15%;
 	display:block;
+	height:10em;
 }
 
 #navigator li {
@@ -14,7 +16,11 @@
 .section-content {
 	background-color:orange;
 	width :50%;
+	flex: 1;
 }
 #toggleNav {
 	color:red;
+	border:none;
+	background-color:orange;
+	cursor:pointer;
 }

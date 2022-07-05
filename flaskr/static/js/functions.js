@@ -44,13 +44,12 @@ function test() {
 }
 function toggleDiv (divname) {
 	let section = document.getElementById(divname); 
-    console.log(section.innerHTML);
+    console.log(section.clientHeight);
 	if (section.style.display=="none") {
 		section.style.display="block";
-        console.log("on"); 
 	}
 	else {
 		section.style.display="none";
-        console.log("off");
 	}
+    console.log(section.clientHeight);
 }
