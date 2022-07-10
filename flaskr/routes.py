@@ -3,9 +3,11 @@ from flask import (
 from werkzeug.exceptions import abort
 from flaskr.auth import login_required
 from flaskr.db import get_db
+from flask import current_app
 import re
-bp = Blueprint ('routes',__name__)
+from flask_mysqldb import MySQL
 
+bp = Blueprint ('routes',__name__)
 @bp.route('/')
 def index():
     print("hey")
@@ -24,6 +26,7 @@ def reg():
             flash("Passwords do not match",category="error")
         if (not validatePassword(_password)):
             flash("Password needs at least one number and at least one special character",category="error")
+        db = get_db() 
     return render_template('auth/registration.html')
 
 
