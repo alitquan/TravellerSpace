@@ -8,6 +8,15 @@ import re
 from flask_mysqldb import MySQL
 
 bp = Blueprint ('routes',__name__)
+
+def exec_query(query):
+    db = get_db()
+    cursor = db.connection.cursor()
+    cursor.execute(query)
+    print("query executed")
+    db.connection.commit()
+    cursor.close()
+
 @bp.route('/')
 def index():
     print("hey")
@@ -26,7 +35,11 @@ def reg():
             flash("Passwords do not match",category="error")
         if (not validatePassword(_password)):
             flash("Password needs at least one number and at least one special character",category="error")
-        db = get_db() 
+        base="INSERT INTO Users(username,password,nickname,email,country)"
+        values=" VALUES ({username},{password},{nickname},{email},{country});"
+        values=values.format(username='"%s"'%_username,password='"%s"'%_password,nickname='"%s"'%_name,email='"%s"'%_email,country='"%s"'%_country)
+        print(base+values)
+        exec_query(base+values)
     return render_template('auth/registration.html')
 
 

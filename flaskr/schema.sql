@@ -1,17 +1,19 @@
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS post;
-
-CREATE TABLE user (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	username TEXT UNIQUE NOT NULL,
-	password TEXT NOT NULL
+DROP TABLE IF EXISTS Persons; 
+DROP TABLE IF EXISTS Users;
+CREATE TABLE Persons (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255)
 );
-
-CREATE TABLE post (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	author_id INTEGER NOT NULL,
-	created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	title TEXT NOT NULL,
-	body TEXT NOT NULL,
-	FOREIGN KEY (author_id) REFERENCES user(id)
+CREATE TABLE Users (
+    id int AUTO_INCREMENT,
+    username varchar(20) NOT NULL,
+    password varchar(32) NOT NULL,
+    nickname varchar(20) NOT NULL,
+    email varchar(20) NOT NULL,
+    country varchar(30) NOT NULL,
+    UNIQUE(id),
+    UNIQUE(username)
 );
