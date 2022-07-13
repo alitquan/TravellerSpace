@@ -1,21 +1,17 @@
 from flask import (
         Blueprint, flash, g, redirect, render_template, request, url_for)
 from werkzeug.exceptions import abort
-from flaskr.auth import login_required
-from flaskr.db import get_db
 from flask import current_app
 import re
 from flask_mysqldb import MySQL
+import mysql.connector
+from flaskr.db import exec_query
 
 bp = Blueprint ('routes',__name__)
+cnx = mysql.connector.connect(user='root', password='Farzana1972$',
+                              host='127.0.0.1',
+                              database='TravellerSpace')
 
-def exec_query(query):
-    db = get_db()
-    cursor = db.connection.cursor()
-    cursor.execute(query)
-    print("query executed")
-    db.connection.commit()
-    cursor.close()
 
 @bp.route('/')
 def index():
@@ -40,6 +36,7 @@ def reg():
         values=values.format(username='"%s"'%_username,password='"%s"'%_password,nickname='"%s"'%_name,email='"%s"'%_email,country='"%s"'%_country)
         print(base+values)
         exec_query(base+values)
+        return redirect(url_for('index'))
     return render_template('auth/registration.html')
 
 

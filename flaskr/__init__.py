@@ -21,10 +21,9 @@ def create_app(test_config=None):
 
     from . import db
     db.init_app(app)
-    from . import auth
-    app.register_blueprint(auth.bp)
     from . import routes
     app.register_blueprint(routes.bp)
     app.add_url_rule('/',endpoint='index')
     print(app.config['DATABASE'])
+    app.app_context().push()
     return app
