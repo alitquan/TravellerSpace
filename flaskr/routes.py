@@ -40,6 +40,20 @@ def reg():
     return render_template('auth/registration.html')
 
 
+
+@bp.route('/loginCall', methods=['POST','GET'])
+def login():
+    if request.method == 'POST':
+        _username=request.form.get('login-username',"")
+        _password=request.form.get('login-password',"")
+
+        query = ("SELECT USERNAME FROM Users"+
+                 " WHERE USERNAME =" + _username +
+                 " AND PASSWORD="+_password)
+        print(query)
+    return render_template('main/first.html')
+
+
 #auxilary methods 
 def validatePassword(value):
     numbers=False

@@ -9,41 +9,41 @@
 
 {% block content %}
 
-<div class = "flexbox">
-	<div class = "flexbox-log-container"> 
-		<span style="width:40%"> Space </span> 
-		{% if g.user%}
-		<div class = "flexbox-log-item">
-			{{g.user['username']}} 
+	{% if logged_on %}
+	<div class = "flexbox">
+		<div class = "flexbox-log-container"> 
+			<span style="width:40%"> Space </span> 
+			{% if g.user%}
+				<div class = "flexbox-log-item">
+					{{g.user['username']}} 
+				</div>
+				<div class = "flexbox-log-item">
+					<a href="{{url_for('auth.logout')}}">Log Out </a> 
+				</div>
+			{% else %}
+				<div class = "flexbox-log-item">
+					<a>Register</a>
+				</div>
+				<div class = "flexbox-log-item">
+					<a>Log In</a> 
+				</div>
+			{% endif %}
 		</div>
-		<div class = "flexbox-log-item">
-			<a href="{{url_for('auth.logout')}}">Log Out </a> 
+
+	</div> 
+
+	<div class = "flexbox">
+		<span style="width:60px"> Example </span> 	
+
+		<div class = "flexbox-nav-container"> 
+			<div class = "flexbox-nav-item">One </div> 
+			<div class = "flexbox-nav-item">Two </div> 
+			<div class = "flexbox-nav-item">Three </div> 
+			<div class = "flexbox-nav-item">Four </div> 
 		</div>
-		
-		{% else %}
-		<div class = "flexbox-log-item">
-			<a>Register</a>
-		</div>
-		<div class = "flexbox-log-item">
-			<a>Log In</a> 
-		</div>
-		{% endif %}
+
 	</div>
-
-</div> 
-
-<div class = "flexbox">
-	<span style="width:60px"> Example </span> 	
-
-	<div class = "flexbox-nav-container"> 
-		<div class = "flexbox-nav-item">One </div> 
-		<div class = "flexbox-nav-item">Two </div> 
-		<div class = "flexbox-nav-item">Three </div> 
-		<div class = "flexbox-nav-item">Four </div> 
-	</div>
-
-</div>
-
+	{% endif %} 
 
 <div class = "login-space"> 
 	<div class = "login-column"> 
@@ -51,13 +51,13 @@
 	</div>
 	<div class = "login-column login-form" style = "background-color:white"> 
 		<div class = "login-body">
-		<form action="" method="post" class="form form-login">
+			<form action="{{url_for('routes.login')}}" method="post" class="form form-login">
 			<div class = "login-field"> 
 				<span class = "fa-stack fa-lg"> 
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-user fa-stack-1x"></i>
 				</span> 
-				<input id="login-username" type="text" class="form-input" placeholder="Username" required>
+				<input name="login-username" id="login-username" type="text" class="form-input" placeholder="Username" required>
 			</div>
 
 			<div class = "login-field"> 
@@ -65,7 +65,7 @@
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-lock fa-stack-1x"></i>
 				</span> 
-			        <input id="login-password" type="password" class="form-input" placeholder="Password" required>
+			        <input name="login-password" id="login-password" type="password" class="form-input" placeholder="Password" required>
 			</div>
 
 			<div class = "login-field login-register">
