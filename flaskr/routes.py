@@ -5,7 +5,8 @@ from flask import current_app
 import re
 from flask_mysqldb import MySQL
 import mysql.connector
-from flaskr.db import exec_query
+from flaskr.db import exec_insert,exec_select
+
 
 bp = Blueprint ('routes',__name__)
 cnx = mysql.connector.connect(user='root', password='Farzana1972$',
@@ -35,7 +36,7 @@ def reg():
         values=" VALUES ({username},{password},{nickname},{email},{country});"
         values=values.format(username='"%s"'%_username,password='"%s"'%_password,nickname='"%s"'%_name,email='"%s"'%_email,country='"%s"'%_country)
         print(base+values)
-        exec_query(base+values)
+        exec_insert(base+values)
         return redirect(url_for('index'))
     return render_template('auth/registration.html')
 
@@ -45,14 +46,20 @@ def reg():
 def login():
     if request.method == 'POST':
         _username=request.form.get('login-username',"")
+        _username='\'%s\'' % _username
+        print (_username)
         _password=request.form.get('login-password',"")
+        _password='\'%s\'' % _password
 
-        query = ("SELECT USERNAME FROM Users"+
+        query = ("SELECT ID FROM Users"+
                  " WHERE USERNAME =" + _username +
-                 " AND PASSWORD="+_password)
-        print(query)
-    return render_template('main/loggedIn.html')
-
+                 " AND PASSWORD="+_password+";")
+        output = exec_select(query)
+        if (output):
+            render_template('main/loggedIn.html')
+        else:
+            flash("Invalid combination of username or password")
+    return render_template('main/first.html')
 
 #auxilary methods 
 def validatePassword(value):

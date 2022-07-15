@@ -70,7 +70,7 @@ def exec_sql_file (connection, lines):
     finally: 
         connection.close()
 
-def exec_query(query):
+def exec_insert(query):
     try:
         conn = get_db()
         cursor = conn.cursor()
@@ -79,11 +79,26 @@ def exec_query(query):
         conn.commit()
         cursor.close()
     except Exception:
-        print("\nQuery exception; Please check query\n")
+        print("\nInsert query exception; Please check query\n")
     finally:
         conn.close()
 
-
+def exec_select(query):
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        print("Query: %s " % query)
+        cursor.execute(query)
+        print("select query executed")
+        result = cursor.fetchall()
+        print("Results: %s \n" % result)
+        cursor.close()
+        return result
+    except:
+        print("\nSelect query exception; Please check query\n")
+        raise 
+    finally:
+        conn.close()
 
 
 '''

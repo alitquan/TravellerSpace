@@ -12,3 +12,4 @@ Flask-Based Web App
 	- external CSS library (font-awesome)
 - registration
 - login
+	- flashes error message if credentials are invalid
