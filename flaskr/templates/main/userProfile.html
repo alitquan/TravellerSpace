@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}"> 
+<script src ="../../static/js/functions.js"> </script>
+{% endblock %} 
+
+{% block content %}
+<div class = "profile-container"> 
+
+	<div id = "navigator"> 
+		<ul>
+			<li> About </li> 
+			<li> Photos </li>
+			<li> Schedule </li> 
+			<li> Reviews </li>
+		</ul> 
+	</div> 
+
+	<div class = "section-content">
+		<button  id=toggleNav onclick="toggleDiv('navigator');event.preventDefault()"> Hide </button>
+	</div> 
+</div>
+{% endblock %}
+
+

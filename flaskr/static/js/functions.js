@@ -38,3 +38,18 @@ function autoSlide() {
   slides[slideIndex-1].style.display = "block";
   setTimeout(autoSlide, 3500); // Change image every 2 seconds
 }
+function test() {
+  let section = document.getElementById("navigator");
+  console.log(section);
+}
+function toggleDiv (divname) {
+	let section = document.getElementById(divname); 
+    console.log(section.clientHeight);
+	if (section.style.display=="none") {
+		section.style.display="block";
+	}
+	else {
+		section.style.display="none";
+	}
+    console.log(section.clientHeight);
+}
