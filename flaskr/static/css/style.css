@@ -1,21 +1,17 @@
 html {
-	font-family: san-serif;
-	background: #8e8a75;
+	font-family: "Helvetica",san-serif;
+	background: #5b3758;
 	padding: 1rem;
 }
 
 body {
 	max-width: 960px;
 	margin: 0 auto;
-	background: #36454F;
+	background: #f9ada0;
 }
 
 body,html {
 	height:100%;
-}
-
-.content-block {
-	background:#87ceff;
 }
 
 .flexbox {
@@ -73,35 +69,80 @@ body,html {
 	transform: translateY(-50%);
 }
 
-.welcome-login-container {
-	display:flex; 
-	flex-direction: row;
+.login-space {
+	background-color:#5b3758;
 	width: 90%;
-	height: 20em;
-	background-color:violet;
-	margin-bottom: 2em;
-	align-items: flex-start;
+	height: 20em; 
+	margin: 0 auto;
+	margin-bottom: 2em; 	
+	display:flex; 
+	justify-content: center;
 }
 
-.login-greeting {
-	height:100%;
-	width:50%;
-	background-color:white;
+.login-column {
+	flex: 50%;
 }
 
-.login-form {
+.login-form { 
+	display: flex;
+	justify-content: center;
+	align-items: center; 
 }
 
-
-.login-container {
+.login-body {
+	background-color: indigo;
+	background: #c65b7c;
+	width: 60%;
+	border-radius: 5px;
+	display: flex;  
+	flex-direction: column;
+	padding: 2em 1.2em 0 2.6em;
+	margin: 0 1em;
 }
 
-.login-item {
+.login-body p {
+	color: white;
+	font-size: 12px;	
 }
+
+.fa-stack-2x {
+	color:white;
+}
+
+.fa-lg {
+	margin-right: 10px; 
+}
+
+.login-field {
+	display: flex;
+	margin-bottom: 2rem;
+} 
+
+
+.login-field input {
+	width: 50%;
+}
+
+.login-register {
+	flex-direction: column;
+	align-items: center;
+}
+
+#login-submit {
+	border-radius: 0.25rem;
+	background-color: #8d36ff;  
+	margin: 0 auto;
+}
+
+#register-option {
+	font-size:12px;	
+	margin-top: 1em;
+}
+
 
 .slideshow {
 	padding-top: 20px;
-	background-color: pink;
+	background-color: #f9627d;
 	display:flex;
 	justify-content:center;
 	flex-direction:column;
@@ -208,6 +249,7 @@ body,html {
 .feature{
 	height: 15em;
 	width: 60%;
+	background-color: #83b692;
 }
 
 .main-footer {
@@ -236,7 +278,7 @@ body,html {
 
 .subfeature {
 	padding: 2em 2em;
-	background-color:yellow; 
+	background-color:#c65b7c; 
 	border-style:solid;
 	margin-bottom: 5px;
 }
@@ -246,7 +288,6 @@ body,html {
 	flex-direction: column;
 	flex-basis: 100%;
 	flex: 1;
-	background-color:red;
 	justify-content:center;
 	align-items:center;
 }

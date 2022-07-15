@@ -1,0 +1,22 @@
+.form-container {
+	display:flex;
+	width:90%;
+	margin: 2em;
+	padding: 2em;
+	flex-direction:column;
+}
+
+label, input, select, button {
+	margin-left: 40%;
+}
+	
+input, select {
+	width: 10em;
+	margin-bottom:1em;
+}
+
+.alert-error { 
+	color:white;
+	background-color:red;
+}
+

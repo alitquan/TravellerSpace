@@ -3,65 +3,81 @@
 {% block head %} 
 
 	<script src="../../static/js/functions.js"> </script> 
+	<link rel="stylesheet" href="../../static/css/font-awesome-4.7.0/css/font-awesome.min.css">
 
 {% endblock %}
 
 {% block content %}
 
-<div class = "flexbox">
-	<div class = "flexbox-log-container"> 
-		<span style="width:40%"> Space </span> 
-		{% if g.user%}
-		<div class = "flexbox-log-item">
-			{{g.user['username']}} 
+	{% if logged_on %}
+	<div class = "flexbox">
+		<div class = "flexbox-log-container"> 
+			<span style="width:40%"> Space </span> 
+			{% if g.user%}
+				<div class = "flexbox-log-item">
+					{{g.user['username']}} 
+				</div>
+				<div class = "flexbox-log-item">
+					<a href="{{url_for('auth.logout')}}">Log Out </a> 
+				</div>
+			{% else %}
+				<div class = "flexbox-log-item">
+					<a>Register</a>
+				</div>
+				<div class = "flexbox-log-item">
+					<a>Log In</a> 
+				</div>
+			{% endif %}
 		</div>
-		<div class = "flexbox-log-item">
-			<a href="{{url_for('auth.logout')}}">Log Out </a> 
-		</div>
-		
-		{% else %}
-		<div class = "flexbox-log-item">
-			<a href="{{url_for('auth.register')}}">Register</a>
-		</div>
-		<div class = "flexbox-log-item">
-			<a href="{{url_for('auth.login')}}">Log In</a> 
-		</div>
-		{% endif %}
-	</div>
 
+	</div> 
+
+	<div class = "flexbox">
+		<span style="width:60px"> Example </span> 	
+
+		<div class = "flexbox-nav-container"> 
+			<div class = "flexbox-nav-item">One </div> 
+			<div class = "flexbox-nav-item">Two </div> 
+			<div class = "flexbox-nav-item">Three </div> 
+			<div class = "flexbox-nav-item">Four </div> 
+		</div>
+
+	</div>
+	{% endif %} 
+
+<div class = "login-space"> 
+	<div class = "login-column"> 
+
+	</div>
+	<div class = "login-column login-form" style = "background-color:white"> 
+		<div class = "login-body">
+			<form action="{{url_for('routes.login')}}" method="post" class="form form-login">
+			<div class = "login-field"> 
+				<span class = "fa-stack fa-lg"> 
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-user fa-stack-1x"></i>
+				</span> 
+				<input name="login-username" id="login-username" type="text" class="form-input" placeholder="Username" required>
+			</div>
+
+			<div class = "login-field"> 
+				<span class = "fa-stack fa-lg"> 
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-lock fa-stack-1x"></i>
+				</span> 
+			        <input name="login-password" id="login-password" type="password" class="form-input" placeholder="Password" required>
+			</div>
+
+			<div class = "login-field login-register">
+				<input id="login-submit" type="submit" value="login">
+				<a id="register-option"  href="{{url_for('routes.reg')}}" > Don't have an account? Register </a>
+			</div> 
+
+		</form> 
+		</div> 
+	</div> 
 </div> 
 
-<div class = "flexbox">
-	<span style="width:60px"> Example </span> 	
-	<div class = "flexbox-nav-container"> 
-		<div class = "flexbox-nav-item">One </div> 
-		<div class = "flexbox-nav-item">Two </div> 
-		<div class = "flexbox-nav-item">Three </div> 
-		<div class = "flexbox-nav-item">Four </div> 
-	</div>
-
-</div>
-
-<div class = "flexbox" style = "justify-content:center"> 
-	<div class = "welcome-login-container">
-		<div class = "login-greeting"> 
-			doo doo
-		</div>
-
-		<div class = "login-form"> 
-			<div class = "login-container">
-				<div class = "login-item">
-					Field One
-				</div>
-
-				<div class = "login-item">
-					Field Two
-				</div> 
-			</div> 
-		</div> 
-
-	</div>
-</div>
 
 <div class = "flexbox slideshow"> 
 	<div class = "slideshow-container">
@@ -75,18 +91,17 @@
 			<img src = "static/images/slide3.jpeg" class = "slider-image"> 
 
 		</div> 
-		
-		<div class = "prev-next-slider"> 
-			<div class= "prev" onClick= "slideTrans(-1)"> &#10094 </div>
-			<div class= "next" onClick= "slideTrans(+1)"> &#10095 </div>
+
+
+		<div class = "slideshow-dots"> 
+		 <span class="dot" onclick="currentSlide(1)"></span>
+			 <span class="dot" onclick="currentSlide(2)"></span>
+			 <span class="dot" onclick="currentSlide(3)"></span>
 		</div>
+
+		
 	</div>
 
-	<div class = "slideshow-dots"> 
-		 <span class="dot" onclick="currentSlide(1)"></span>
-		 <span class="dot" onclick="currentSlide(2)"></span>
-		 <span class="dot" onclick="currentSlide(3)"></span>
-	</div>
 </div>
 
 <div class = "flexbox features">

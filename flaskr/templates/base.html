@@ -7,6 +7,7 @@
 	</title>
 	<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"> </link>
 	{% block head %} {% endblock %} 
+
 </head>
 <section class = "content">
 	<header>
@@ -16,5 +17,6 @@
 	{% for message in get_flashed_messages() %}
 		<div class="flash">{{message}}</div>
 	{% endfor %}
+	{% block navbar %} {% endblock %} 
 	{% block content %} {% endblock %}
 </section>
