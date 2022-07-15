@@ -56,10 +56,16 @@ def login():
                  " AND PASSWORD="+_password+";")
         output = exec_select(query)
         if (output):
-            render_template('main/loggedIn.html')
+            print("routes.py output ---> %s" % output)
+            return redirect(url_for('routes.loggedIn'))
         else:
             flash("Invalid combination of username or password")
     return render_template('main/first.html')
+
+@bp.route('/user', methods=['POST','GET'])
+def loggedIn():
+    print("user has been logged in")
+    return render_template("main/loggedIn.html" )
 
 #auxilary methods 
 def validatePassword(value):
