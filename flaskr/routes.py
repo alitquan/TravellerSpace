@@ -51,7 +51,7 @@ def login():
                  " WHERE USERNAME =" + _username +
                  " AND PASSWORD="+_password)
         print(query)
-    return render_template('main/first.html')
+    return render_template('main/loggedIn.html')
 
 
 #auxilary methods 
