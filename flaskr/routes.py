@@ -67,6 +67,10 @@ def loggedIn():
     print("user has been logged in")
     return render_template("main/loggedIn.html" )
 
+@bp.route('/viewProfile', methods=['POST','GET'])
+def viewProfile():
+    return render_template("main/userProfile.html")
+
 #auxilary methods 
 def validatePassword(value):
     numbers=False
