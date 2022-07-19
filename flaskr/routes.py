@@ -1,5 +1,5 @@
 from flask import (
-        Blueprint, flash, g, redirect, render_template, request, url_for)
+        Blueprint, flash, jsonify, g, redirect, render_template, request, url_for)
 from werkzeug.exceptions import abort
 from flask import current_app
 import re
@@ -70,6 +70,18 @@ def loggedIn():
 @bp.route('/viewProfile', methods=['POST','GET'])
 def viewProfile():
     return render_template("main/userProfile.html")
+
+@bp.route("/searchUsers", methods=['POST','GET'])
+def userSearch():
+    return render_template("main/navbar/searchBar.html")
+
+@bp.route("/getUser", methods=["GET"])
+def getUsers():
+    if request.method == 'GET':
+        query = "SELECT * FROM Users"
+        ret = exec_select(query)
+        return str(ret)
+    return 'OK'
 
 #auxilary methods 
 def validatePassword(value):
