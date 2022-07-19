@@ -83,6 +83,13 @@ def getUsers():
         return str(ret)
     return 'OK'
 
+@bp.route("/getSearchTerm", methods=["GET"])
+def getSearch():
+    if request.method == 'GET':
+        return 'OK'
+
+    return '100'
+
 #auxilary methods 
 def validatePassword(value):
     numbers=False

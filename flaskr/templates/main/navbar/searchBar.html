@@ -1,29 +1,41 @@
 {% extends 'main/loggedIn.html'%}
 
 {% block head %} 
-<link rel="stylesheet" href="{{url_for('static',filename='css/form.css')}}"> 
+<link rel="stylesheet" href="{{url_for('static',filename='css/search.css')}}"> 
 <script src ="../../static/js/functions.js"> </script>
 
 {% endblock %}
 
 {% block content %}
-<div class="search-container">
-	<div class = "searchbar">
-		<input id="bar" style="width:500px"type="text" placeholder="Search ..."> 
-		<label for="dog-names">Choose a dog name:</label>
-		<select name="dog-names" id="dog-names">
-			<option value="rigatoni">Rigatoni</option>
-			<option value="dave">Dave</option>
-			<option value="pumpernickel">Pumpernickel</option>
-			<option value="reeses">Reeses</option>
-		</select>
-	</div>
-
-	<div class = "button-panel"> 
-		<button id="get-users" onclick="getUsers()"> Get all Users </button>
-		<a href="{{url_for('routes.getUsers')}}">See users</a> 
-	</div> 
-
+<div class = "searchbar">
+	<input id="bar" type="text" placeholder="Search ..."> 
+	<select name="filters" id="filters">
+		<option value="username">Username</option>
+		<option value="country">Country</option>
+		<option value="location">Location</option>
+	</select>
 </div>
 
+<div class = "admin-panel"> 
+	<button id="get-users" onclick="getResults()"> Get all Users </button>
+	<a href="{{url_for('routes.getUsers')}}">See users</a> 
+</div> 
+
+<script> 
+	function getResults() {
+
+		let searchTerm = document.getElementById("get-users"); 
+
+		fetch ('/getSearchTerm', {
+			method:'GET'
+
+		}).then(function(response) { 
+			return response.text();
+		}).then(function(text) {
+			console.log('POST RESPONSE: ');
+			console.log(text);
+		})
+	}
+</script> 
 {% endblock %} 
+
