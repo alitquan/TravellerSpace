@@ -22,16 +22,37 @@
 </div> 
 
 <script> 
+	function test1(SQL_result) {
+		retVal=SQL_result.split("),");
+		return retVal;
+	}
+	
+	
 	function getResults() {
 
-		let searchTerm = document.getElementById("get-users"); 
+		let searchTerm = document.getElementById("bar").value; 
+		let filter = document.getElementById("filters").value;
+
+		query = "SELECT " + filter + " FROM Users where " +
+				filter + " LIKE \'" + searchTerm + "%\';";
 
 		fetch ('/getSearchTerm', {
-			method:'GET'
+			headers : {
+				'Content-Type': 'application/json'
+			},
+			method:'POST',
+			body: JSON.stringify({
+				"search_term":searchTerm,
+				"filter":filter,
+				"query":query
+			})
 
 		}).then(function(response) { 
 			return response.text();
 		}).then(function(text) {
+			console.log(searchTerm);
+			console.log(filter);
+			console.log(query);
 			console.log('POST RESPONSE: ');
 			console.log(text);
 		})

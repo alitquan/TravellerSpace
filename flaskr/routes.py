@@ -83,11 +83,18 @@ def getUsers():
         return str(ret)
     return 'OK'
 
-@bp.route("/getSearchTerm", methods=["GET"])
+@bp.route("/getSearchTerm", methods=["POST"])
 def getSearch():
-    if request.method == 'GET':
-        return 'OK'
-
+    if request.method == 'POST':
+        incoming = request.get_json()
+        query    = incoming['query']
+        ret      = exec_select(query)
+        _ret      = re.findall(r"'([^']*)'",str( ret ) )
+        print("INCOMING")
+        print(incoming)
+        print(ret)
+        print(_ret)
+        return str(ret)
     return '100'
 
 #auxilary methods 
