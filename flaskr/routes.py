@@ -89,12 +89,13 @@ def getSearch():
         incoming = request.get_json()
         query    = incoming['query']
         ret      = exec_select(query)
-        _ret      = re.findall(r"'([^']*)'",str( ret ) )
+        _ret     = re.findall(r"'([^']*)'",str( ret ) )
+        _ret     = str( _ret ).replace("'","\"").replace(" ","")
         print("INCOMING")
         print(incoming)
         print(ret)
         print(_ret)
-        return str(ret)
+        return str(_ret)
     return '100'
 
 #auxilary methods 

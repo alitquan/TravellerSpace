@@ -16,10 +16,27 @@
 	</select>
 </div>
 
+<ul id="search-results"> 
+		<li> </li>
+		<li> </li>
+		<li>a </li>
+		<li> </li>
+		<li> </li>
+		<li> </li>
+		<li> </li>
+		<li> </li>
+		<li> </li>
+		<li> </li>
+	</ul>
+
+
+
+
 <div class = "admin-panel"> 
 	<button id="get-users" onclick="getResults()"> Get all Users </button>
 	<a href="{{url_for('routes.getUsers')}}">See users</a> 
 </div> 
+
 
 <script> 
 	function test1(SQL_result) {
@@ -27,6 +44,13 @@
 		return retVal;
 	}
 	
+	function updateList(names) { 
+		let html_list = document.querySelectorAll('#search-results li');
+		console.log(html_list);
+		for (let i = 0; i < names.length; i++) {
+			html_list[i].innerText = names[i];
+		}
+	}
 	
 	function getResults() {
 
@@ -46,7 +70,6 @@
 				"filter":filter,
 				"query":query
 			})
-
 		}).then(function(response) { 
 			return response.text();
 		}).then(function(text) {
@@ -55,6 +78,10 @@
 			console.log(query);
 			console.log('POST RESPONSE: ');
 			console.log(text);
+			console.log("In array form: \n");
+			names = JSON.parse(text);
+			console.log(names); 
+			updateList(names);
 		})
 	}
 </script> 
