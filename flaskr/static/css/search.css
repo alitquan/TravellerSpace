@@ -5,8 +5,39 @@
 	margin-bottom:2em;
 }
 
+
+#bar, #filters {
+	height: 2.5em;
+	max-height: 7em;
+}
+
+#bar {
+	width: 12em;
+}
+
+#filters {
+	max-height:6em;
+}
+
+#search-results {
+	background-color:white;
+}
+
+.bar-results-container ul {
+	padding-left:0;
+}
+#search-results li {
+	outline: 1px solid #000;
+	margin-bottom: 1px;
+	list-style-type:none;
+}
+
+
+
 .admin-panel {
 	display:flex;
 	flex-direction:row;
 	justify-content:center;
 }
+
+

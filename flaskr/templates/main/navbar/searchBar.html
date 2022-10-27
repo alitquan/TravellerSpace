@@ -8,29 +8,18 @@
 
 {% block content %}
 <div class = "searchbar">
-	<input id="bar" type="text" placeholder="Search ..."> 
+	<div class = "bar-results-container"> 
+		<input id="bar" type="text" placeholder="Search ..."> 
+		<ul id="search-results"> 
+		</ul>
+	</div> 
+
 	<select name="filters" id="filters">
 		<option value="username">Username</option>
 		<option value="country">Country</option>
 		<option value="location">Location</option>
 	</select>
 </div>
-
-<ul id="search-results"> 
-		<li> </li>
-		<li> </li>
-		<li>a </li>
-		<li> </li>
-		<li> </li>
-		<li> </li>
-		<li> </li>
-		<li> </li>
-		<li> </li>
-		<li> </li>
-	</ul>
-
-
-
 
 <div class = "admin-panel"> 
 	<button id="get-users" onclick="getResults()"> Get all Users </button>
@@ -45,10 +34,12 @@
 	}
 	
 	function updateList(names) { 
-		let html_list = document.querySelectorAll('#search-results li');
-		console.log(html_list);
-		for (let i = 0; i < names.length; i++) {
-			html_list[i].innerText = names[i];
+		var ul = document.getElementById("search-results");
+		
+		for (let i = 0; i < names.length; i++) { 
+			var li = document.createElement("li");
+			li.appendChild(document.createTextNode(names[i])); 
+			ul.appendChild(li);
 		}
 	}
 	
