@@ -28,6 +28,15 @@
 
 
 <script> 
+	console.log("hey there");
+	const tagged = document.getElementById("bar");
+	console.log(tagged.innerHTML);
+	tagged.addEventListener('input',
+		function(){
+			console.log("hi");
+			getResults(); 
+		}
+	); 
 	function test1(SQL_result) {
 		retVal=SQL_result.split("),");
 		return retVal;
@@ -35,6 +44,7 @@
 	
 	function updateList(names) { 
 		var ul = document.getElementById("search-results");
+		ul.innerHTML="";
 		
 		for (let i = 0; i < names.length; i++) { 
 			var li = document.createElement("li");
@@ -44,6 +54,7 @@
 	}
 	
 	function getResults() {
+	
 
 		let searchTerm = document.getElementById("bar").value; 
 		let filter = document.getElementById("filters").value;
@@ -75,6 +86,7 @@
 			updateList(names);
 		})
 	}
+
 </script> 
 {% endblock %} 
 
