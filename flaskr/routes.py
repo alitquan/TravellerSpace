@@ -1,5 +1,5 @@
 from flask import (
-        Blueprint, flash, jsonify, g, redirect, render_template, request, url_for)
+        Blueprint, flash, session, jsonify, g, redirect, render_template, request, url_for)
 from werkzeug.exceptions import abort
 from flask import current_app
 import re
@@ -57,23 +57,49 @@ def login():
         output = exec_select(query)
         if (output):
             print("routes.py output ---> %s" % output)
-            return redirect(url_for('routes.loggedIn'))
+            id = output[0][0]
+            print ("number: "+str(id))
+            session['current_user']= id
+            print ("Test: " + str(session.get('current_user')))
+            return redirect(url_for('routes.loggedIn',_id = id))
         else:
             flash("Invalid combination of username or password")
     return render_template('main/first.html')
+
 
 @bp.route('/user', methods=['POST','GET'])
 def loggedIn():
     print("user has been logged in")
     return render_template("main/loggedIn.html" )
 
-@bp.route('/viewProfile', methods=['POST','GET'])
-def viewProfile():
+@bp.route('/myProfile',methods=['POST','GET'])
+def viewMyProfile():
+    _id = str(session.get('current_user'))
+    print ("My Profile: " + _id )
+
+    query = ("SELECT username,email FROM Users"+
+             " WHERE ID =" + _id )
+    output = exec_select(query)
+    print ("my profile query output: " + str(output))
+
+    _username=output[0][0]
+    _email=output[0][1]
+    user = {'username':_username,'email':_email}
+    return render_template("main/userProfile.html",user=user)
+
+@bp.route('/viewProfile/<_id>', methods=['POST','GET'])
+def viewProfile(_id=None):
+    query = ("SELECT username,email FROM Users"+
+             " WHERE ID =" + _id )
+    output = exec_select(query)
+    print("viewProfile output --- query")
     return render_template("main/userProfile.html")
+
 
 @bp.route("/searchUsers", methods=['POST','GET'])
 def userSearch():
     return render_template("main/navbar/searchBar.html")
+
 
 @bp.route("/getUser", methods=["GET"])
 def getUsers():
@@ -82,6 +108,7 @@ def getUsers():
         ret = exec_select(query)
         return str(ret)
     return 'OK'
+
 
 @bp.route("/getSearchTerm", methods=["POST"])
 def getSearch():
@@ -98,11 +125,12 @@ def getSearch():
         return str(_ret)
     return '100'
 
+
+
 #auxilary methods 
 def validatePassword(value):
     numbers=False
     special=False
-
     special_characters = "!@#$%^&*()-+?_=,<>/"
     for character in value:
         if character.isdigit():
