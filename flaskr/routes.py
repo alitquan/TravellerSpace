@@ -28,10 +28,16 @@ def reg():
         _name = request.form.get('name')
         _email = request.form.get('email')
         _country = request.form.get('country')
+        print()
+        if (isUsernameTaken(_username)):
+            flash("Username was already taken") 
+            return render_template('auth/registration.html') 
         if (_password!=_confPassword):
-            flash("Passwords do not match",category="error")
+            flash("Passwords did not match")
+            return render_template('auth/registration.html') 
         if (not validatePassword(_password)):
-            flash("Password needs at least one number and at least one special character",category="error")
+            flash("Password did not meet requirements") 
+            return render_template('auth/registration.html') 
         base="INSERT INTO Users(username,password,nickname,email,country)"
         values=" VALUES ({username},{password},{nickname},{email},{country});"
         values=values.format(username='"%s"'%_username,password='"%s"'%_password,nickname='"%s"'%_name,email='"%s"'%_email,country='"%s"'%_country)
@@ -128,6 +134,16 @@ def getSearch():
 
 
 #auxilary methods 
+
+def isUsernameTaken (value):
+    query = "SELECT USERNAME FROM Users WHERE USERNAME = '%s';" % value
+    output = exec_select(query)
+    print ("isUsernameTaken: " + str(output)+ "\n")
+    if (output):
+        return True
+    else:
+        return False 
+
 def validatePassword(value):
     numbers=False
     special=False
