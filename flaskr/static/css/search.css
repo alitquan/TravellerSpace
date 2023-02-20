@@ -31,7 +31,10 @@
 	margin-bottom: 1px;
 	list-style-type:none;
 }
-
+.search-profile-link {
+	color: red;	
+	cursor: pointer;
+}
 
 
 .admin-panel {

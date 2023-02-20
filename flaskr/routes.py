@@ -93,6 +93,15 @@ def viewMyProfile():
     user = {'username':_username,'email':_email}
     return render_template("main/userProfile.html",user=user)
 
+@bp.route('/viewProfile/<_username>') 
+def viewUserProfile(_username=None):
+    query = ("SELECT username,email from USERS" +
+             "WHERE username = " + _username) 
+    output = exec_select(query) 
+    print (output) 
+    print("Sucessfuly printed username " + _username) 
+    return render_template("main/loggedIn.html")
+
 @bp.route('/viewProfile/<_id>', methods=['POST','GET'])
 def viewProfile(_id=None):
     query = ("SELECT username,email FROM Users"+
