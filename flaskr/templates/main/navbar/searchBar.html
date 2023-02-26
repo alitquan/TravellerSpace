@@ -41,6 +41,24 @@
 		retVal=SQL_result.split("),");
 		return retVal;
 	}
+
+	function passUserSearchQuery(query) {
+		console.log("passUserSearchQuery executing");
+		fetch ('/storeRenderQuery', {
+			headers : {
+				'Content-Type': 'application/json'
+			},
+			method:'POST',
+			body: JSON.stringify({
+				"render_query":query,
+			})
+		})
+		/*.then(function(response) { 
+			return response.text();
+		}).then(function(text) {
+			console.log(text);
+		});*/
+	}
 	
 	function updateList(names) { 
 		var ul = document.getElementById("search-results");
@@ -51,8 +69,12 @@
 			var anchor = document.createElement("a");
 			anchor.appendChild(document.createTextNode(names[i]))
 			anchor.classList.add("search-profile-link")
-			let _anchor="{{url_for('routes.getUsers')}}"
-			anchor.href=_anchor;
+			//let _anchor="{{url_for('routes.getUsers')}}"
+			//anchor.href=_anchor;
+			//let _onclick ="passUserSearchQuery(\"names[i]\")"
+			//anchor.onclick = _onclick
+			let _anchor="javascript:passUserSearchQuery(\"poop\")"
+			anchor.href=_anchor
 			li.appendChild(anchor) 
 			ul.appendChild(li);
 		}

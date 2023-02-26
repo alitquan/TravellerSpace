@@ -78,6 +78,7 @@ def loggedIn():
     print("user has been logged in")
     return render_template("main/loggedIn.html" )
 
+#clicking on the My Profile Button
 @bp.route('/myProfile',methods=['POST','GET'])
 def viewMyProfile():
     _id = str(session.get('current_user'))
@@ -99,6 +100,7 @@ def viewUserProfile(_username=None):
              "WHERE username = " + _username) 
     output = exec_select(query) 
     print (output) 
+    print ("Function ---- viewUserProfile")
     print("Sucessfuly printed username " + _username) 
     return render_template("main/loggedIn.html")
 
@@ -107,6 +109,7 @@ def viewProfile(_id=None):
     query = ("SELECT username,email FROM Users"+
              " WHERE ID =" + _id )
     output = exec_select(query)
+    print ("Function --- viewProfile")
     print("viewProfile output --- query")
     return render_template("main/userProfile.html")
 
@@ -115,7 +118,21 @@ def viewProfile(_id=None):
 def userSearch():
     return render_template("main/navbar/searchBar.html")
 
+'''
+clicking on username in searchbar
+'''
+@bp.route("/storeRenderQuery",methods=["POST"])
+def storeUserSearchQuery(): 
+    if request.method == 'POST':
+        incoming = request.get_json()
+        queryName = incoming['render_query']
+        print (queryName)
+        print("storeUserSearchQuery")
+        return "Done"
+    print("storeUserSearchQuery -- done")
+    return 'OK'
 
+# clicking on link from navbar will call this 
 @bp.route("/getUser", methods=["GET"])
 def getUsers():
     if request.method == 'GET':
