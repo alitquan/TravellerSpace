@@ -94,16 +94,19 @@ def viewMyProfile():
     user = {'username':_username,'email':_email}
     return render_template("main/userProfile.html",user=user)
 
-@bp.route('/viewProfile/<_username>') 
+# function for rendering a user profile based on the username
+@bp.route('/viewUserProfile/<_username>',methods=['POST','GET']) 
 def viewUserProfile(_username=None):
-    query = ("SELECT username,email from USERS" +
-             "WHERE username = " + _username) 
+    username = addQuotes(_username)
+    query = ("SELECT username,email from Users" +
+             " WHERE username = " + username) 
     output = exec_select(query) 
     print (output) 
     print ("Function ---- viewUserProfile")
     print("Sucessfuly printed username " + _username) 
     return render_template("main/loggedIn.html")
 
+# not sure what this is used for 
 @bp.route('/viewProfile/<_id>', methods=['POST','GET'])
 def viewProfile(_id=None):
     query = ("SELECT username,email FROM Users"+
@@ -128,9 +131,18 @@ def storeUserSearchQuery():
         queryName = incoming['render_query']
         print (queryName)
         print("storeUserSearchQuery")
-        return "Done"
+        username = addQuotes(queryName)
+        query = ("SELECT username,email from Users" +
+                 " WHERE username = " + username) 
+        output = exec_select(query) 
+        print (output) 
+        print ("Function ---- viewUserProfile")
+        print("Sucessfuly printed username " + username) 
+        return jsonify(output)
+        #return redirect(url_for('routes.viewUserProfile',_username=queryName))
+       # return redirect(   viewUserProfile(queryName) )
     print("storeUserSearchQuery -- done")
-    return 'OK'
+    return render_template("main/loggedIn.html")
 
 # clicking on link from navbar will call this 
 @bp.route("/getUser", methods=["GET"])
@@ -160,6 +172,9 @@ def getSearch():
 
 
 #auxilary methods 
+
+def addQuotes(word):
+    return "\"" + word + "\""
 
 def isUsernameTaken (value):
     query = "SELECT USERNAME FROM Users WHERE USERNAME = '%s';" % value

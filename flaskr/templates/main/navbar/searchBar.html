@@ -52,10 +52,11 @@
 			body: JSON.stringify({
 				"render_query":query,
 			})
-		})
-		/*.then(function(response) { 
-			return response.text();
-		}).then(function(text) {
+		}).then(function(response) { 
+			console.log( response.text()) ;
+            str = response.text().replace(/\\/g, '');
+			console.log(str);
+		})/*.then(function(text) {
 			console.log(text);
 		});*/
 	}
@@ -73,7 +74,7 @@
 			//anchor.href=_anchor;
 			//let _onclick ="passUserSearchQuery(\"names[i]\")"
 			//anchor.onclick = _onclick
-			let _anchor="javascript:passUserSearchQuery(\"poop\")"
+			let _anchor="javascript:passUserSearchQuery(\""+names[i]+"\");"
 			anchor.href=_anchor
 			li.appendChild(anchor) 
 			ul.appendChild(li);
