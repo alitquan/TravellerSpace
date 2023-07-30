@@ -84,17 +84,18 @@ def viewMyProfile():
     _id = str(session.get('current_user'))
     print ("My Profile: " + _id )
 
-    query = ("SELECT username,email FROM Users"+
+    query = ("SELECT username,email,country FROM Users"+
              " WHERE ID =" + _id )
     output = exec_select(query)
     print ("my profile query output: " + str(output))
 
     _username=output[0][0]
     _email=output[0][1]
-    user = {'username':_username,'email':_email}
+    _country=output[0][2]
+    user = {'username':_username,'email':_email,'country':_country}
     return render_template("main/userProfile.html",user=user)
 
-# function for rendering a user profile based on the username
+# function for renderiaaaaaaaaaaaang a user profile based on the username. Obsolete
 @bp.route('/viewUserProfile/<_username>',methods=['POST','GET']) 
 def viewUserProfile(_username=None):
     username = addQuotes(_username)
@@ -132,17 +133,28 @@ def storeUserSearchQuery():
         print (queryName)
         print("storeUserSearchQuery")
         username = addQuotes(queryName)
-        query = ("SELECT username,email from Users" +
+        query = ("SELECT username,email,country from Users" +
                  " WHERE username = " + username) 
         output = exec_select(query) 
         print (output) 
         print ("Function ---- viewUserProfile")
         print("Sucessfuly printed username " + username) 
         return jsonify(output)
-        #return redirect(url_for('routes.viewUserProfile',_username=queryName))
-       # return redirect(   viewUserProfile(queryName) )
     print("storeUserSearchQuery -- done")
     return render_template("main/loggedIn.html")
+
+
+#testing redirection called by JS functiuon
+@bp.route("/return",methods=["GET","POST"])
+def testingRedirection(): 
+    if request.method == 'POST':
+        incoming = request.get_json()
+        queryName = incoming['searchedUser']
+        print(queryName)
+        print("testing redirection") 
+    return redirect(url_for('index'))
+
+
 
 # clicking on link from navbar will call this 
 @bp.route("/getUser", methods=["GET"])

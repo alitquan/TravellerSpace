@@ -52,15 +52,32 @@
 			body: JSON.stringify({
 				"render_query":query,
 			})
-		}).then(function(response) { 
-			console.log( response.text()) ;
-            str = response.text().replace(/\\/g, '');
-			console.log(str);
-		})/*.then(function(text) {
-			console.log(text);
-		});*/
+		}).then(
+			response => response.json() 
+		).then((data) => foofoo(data)) 
+		console.log("pusq done")
 	}
 	
+	function foofoo (data) {
+		console.log("this is foo foo representing")
+		console.log(data) 
+		return fetch('/return',{
+			headers : {
+				'Content-Type': 'application/json'
+			},
+			method:'POST',
+			body: JSON.stringify({
+				"searchedUser":data,
+			}) 
+		}).then(( response ) => {
+			console.log("unparsed data")
+			console.log(response)
+			console.log(response.url) 
+			window.location.href = response.url
+	    }).catch (console.error)
+	}
+
+
 	function updateList(names) { 
 		var ul = document.getElementById("search-results");
 		ul.innerHTML="";
@@ -70,10 +87,6 @@
 			var anchor = document.createElement("a");
 			anchor.appendChild(document.createTextNode(names[i]))
 			anchor.classList.add("search-profile-link")
-			//let _anchor="{{url_for('routes.getUsers')}}"
-			//anchor.href=_anchor;
-			//let _onclick ="passUserSearchQuery(\"names[i]\")"
-			//anchor.onclick = _onclick
 			let _anchor="javascript:passUserSearchQuery(\""+names[i]+"\");"
 			anchor.href=_anchor
 			li.appendChild(anchor) 
