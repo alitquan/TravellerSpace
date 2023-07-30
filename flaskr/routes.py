@@ -95,27 +95,21 @@ def viewMyProfile():
     user = {'username':_username,'email':_email,'country':_country}
     return render_template("main/userProfile.html",user=user)
 
-# function for renderiaaaaaaaaaaaang a user profile based on the username. Obsolete
+# function for rendering a user profile based on the username
 @bp.route('/viewUserProfile/<_username>',methods=['POST','GET']) 
 def viewUserProfile(_username=None):
     username = addQuotes(_username)
-    query = ("SELECT username,email from Users" +
+    query = ("SELECT username,email,country from Users" +
              " WHERE username = " + username) 
     output = exec_select(query) 
     print (output) 
     print ("Function ---- viewUserProfile")
     print("Sucessfuly printed username " + _username) 
-    return render_template("main/loggedIn.html")
-
-# not sure what this is used for 
-@bp.route('/viewProfile/<_id>', methods=['POST','GET'])
-def viewProfile(_id=None):
-    query = ("SELECT username,email FROM Users"+
-             " WHERE ID =" + _id )
-    output = exec_select(query)
-    print ("Function --- viewProfile")
-    print("viewProfile output --- query")
-    return render_template("main/userProfile.html")
+    _username=output[0][0]
+    _email=output[0][1]
+    _country=output[0][2]
+    user = {'username':_username,'email':_email,'country':_country}
+    return render_template("main/userProfile.html",user=user)
 
 
 @bp.route("/searchUsers", methods=['POST','GET'])
@@ -151,9 +145,12 @@ def testingRedirection():
         incoming = request.get_json()
         queryName = incoming['searchedUser']
         print(queryName)
+        profileName = queryName[0][0]
+        print("testingRedirection")
+        print (profileName)
         print("testing redirection") 
-    return redirect(url_for('index'))
-
+        return redirect(url_for('routes.viewUserProfile',_username=profileName))
+    return 'OK'
 
 
 # clicking on link from navbar will call this 

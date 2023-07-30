@@ -57,11 +57,12 @@
 		).then((data) => foofoo(data)) 
 		console.log("pusq done")
 	}
-	
+r
 	function foofoo (data) {
+		console.log(data)
 		console.log("this is foo foo representing")
 		console.log(data) 
-		return fetch('/return',{
+		fetch('/return',{
 			headers : {
 				'Content-Type': 'application/json'
 			},
