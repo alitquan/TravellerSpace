@@ -25,5 +25,6 @@ def create_app(test_config=None):
     app.register_blueprint(routes.bp)
     app.add_url_rule('/',endpoint='index')
     print(app.config['DATABASE'])
+    print(app.config['STATIC_URL_PATH'])
     app.app_context().push()
     return app
