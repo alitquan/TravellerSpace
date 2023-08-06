@@ -16,7 +16,7 @@
 				</div>
 			{% else %}
 				<div class = "flexbox-log-item">
-					<a href="{{url_for('routes.viewProfile')}}">My Profile</a>
+					<a href="{{url_for('routes.viewMyProfile')}}">My Profile</a>
 				</div>
 				<div class = "flexbox-log-item">
 					<a >Sign Out</a> 
@@ -30,7 +30,9 @@
 		<span style="width:60px"> Example </span> 	
 
 		<div class = "flexbox-nav-container"> 
-			<div class = "flexbox-nav-item">One </div> 
+			<div class = "flexbox-nav-item">
+				<a href="{{url_for('routes.userSearch')}}">Find a User</a>
+			</div> 
 			<div class = "flexbox-nav-item">Two </div> 
 			<div class = "flexbox-nav-item">Three </div> 
 			<div class = "flexbox-nav-item">Four </div> 

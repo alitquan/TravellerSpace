@@ -6,10 +6,6 @@
 
 {% block content %}
 
-{% for category, message in get_flashed_messages(with_categories=True) %}
-  <div class="alert-{{category}}">Error: {{ message }}</div>
-{% endfor %}
-
 <div class="flexbox" style="justify-content:center" > 
 	<div class="form-container" style="background-color:pink;">
  
