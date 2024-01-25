@@ -3,6 +3,7 @@
 {% block head %} 
 <link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}"> 
 <script src ="../../static/js/functions.js"> </script>
+
 {% endblock %} 
 
 {% block content %}
@@ -10,11 +11,12 @@
 
 	<div id = "navigator"> 
 		<ul>
-			<li> About </li> 
+			<li> About  </li> 
 			<li> Photos </li>
 			<li> Schedule </li> 
 			<li> Reviews </li>
 		</ul> 
+
 	</div> 
 
 	<div class = "section-content">
@@ -22,11 +24,85 @@
 		<p id = "p-name"> Username: {{user['username']}} </p> <br/> 
         <p id = "p-email"> E-mail: {{user['email']}} </p> <br/>
         <p id = "p-country"> Country: {{user['country']}} </p> <br/>
-		<p id ="p-about"> About: </p> <br/>  
+		<p id ="p-about"> About: <p id ="p-bio"> My name is victor</p> </p> <br/>  
+
+		<div id ="edit-bar"> 
+			<button id="button-edit-toggle"> Edit </button> 
+			<button id="button-save"> Save </button>
+			<button id="button-cancel"> Cancel </button>
+		</div>
 
 	</div> 
 
 </div>
+
+<script>
+document.getElementById("button-edit-toggle").addEventListener("click", myFunction);
+
+function myFunction() {
+
+	// replace bio with the input element
+
+	let bio = document.getElementById("p-bio");
+	let bodyText = bio.textContent; 
+	var input = document.createElement("input");
+	input.type = "text";
+	input.value= bodyText;
+	bio.replaceWith(input); 
+
+	// make 2 other buttons disappear
+	let saveButton = document.getElementById("button-save"); 
+	let cancelButton = document.getElementById("button-cancel"); 
+	saveButton.style.display ='block';
+	cancelButton.style.display = 'block'
+	saveButton.innerText = 'Modified Save'; 
+	saveButton.onclick = function () {
+		var newBio = document.createElement('p');
+		newBio.id ='p-bio';
+		newBio.innerText = input.value;
+		input.replaceWith(newBio);
+		saveButton.style.display = 'none';
+		cancelButton.style.diplay = 'none'; 
+	}
+
+	cancelButton.onclick = function () {
+		var newBio = document.createElement('p');
+		newBio.id ='p-bio';
+		newBio.innerText = input.value;
+		input.replaceWith(newBio);
+		saveButton.style.display = 'none';
+		cancelButton.style.diplay = 'none'; 
+	}
+	console.log("hello 2")
+
+}
+
+document.getElementById("button-cancel").addEventListener("click", myFunction2);
+
+function myFunction2() {
+	/*
+	let saveButton = document.getElementById("button-save"); 
+
+	let button = document.createElement('BUTTON');
+	let text = document.createTextNode("Edit");
+	button.id='button-edit-toggle'; 
+	button.appendChild(text);
+	button.addEventListener("click", myFunction);
+
+
+	let editButton = document.getElementById("button-edit-toggle"); 
+	saveButton.replaceWith(button) 
+
+	let cancelButton = document.getElementById("button-cancel")
+	cancelButton.style.display = "None";
+
+
+	console.log("hello");
+	*/ 
+}
+
+</script> 
+
 {% endblock %}
 
 
