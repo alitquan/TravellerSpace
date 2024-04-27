@@ -1,1 +1,21 @@
 https://flask.palletsprojects.com/en/2.1.x/tutorial/views/
+service file: /usr/lib/systemd/system/
+mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+systemctl enable mariadb
+--
+sudo mysql
+flush privileges
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+flush privileges
+--
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+---
+python app.py
+flask init-db
+flask run
+flask_mysqldb -- pip
+---
+sudo pacman -Syu mariadb
+sudo pacman -Syu pkgconf

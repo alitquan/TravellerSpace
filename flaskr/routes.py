@@ -43,8 +43,25 @@ def reg():
         values=values.format(username='"%s"'%_username,password='"%s"'%_password,nickname='"%s"'%_name,email='"%s"'%_email,country='"%s"'%_country)
         print(base+values)
         exec_insert(base+values)
+
+
+        createProfile(_username)
         return redirect(url_for('index'))
     return render_template('auth/registration.html')
+
+
+def createProfile(_username): 
+    _username='\'%s\'' % _username 
+    query = ("SELECT ID FROM Users"+
+            " WHERE USERNAME =" + _username+";") 
+    output = exec_select(query)
+    print("created profile")
+    print(output) 
+    id = output[0][0]
+    
+    query2 = "INSERT INTO Profiles(user_id) VALUES ({});".format(id)
+    exec_insert(query2)
+    print ("this is query" + query2)
 
 
 

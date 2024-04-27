@@ -5,8 +5,11 @@ from flask_mysqldb import MySQL
 def create_app(test_config=None):
     app = Flask (__name__, instance_relative_config=True)
 
+    # will be migrated to config.py
     app.config.from_mapping(
-        DATABASE = os.path.join(app.instance_path,'flaskr.sqlite')
+        DATABASE = os.path.join(app.instance_path,'flaskr.sqlite'),
+        STATIC_URL_PATH = '/static',
+        SECRET_KEY = 'super secret key'
     )
     if test_config is None:
         app.config.from_pyfile('config.py',silent = True)
