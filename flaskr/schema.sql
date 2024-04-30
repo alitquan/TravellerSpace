@@ -18,6 +18,8 @@ CREATE TABLE Users (
     nickname varchar(20) NOT NULL,
     email varchar(20) NOT NULL,
     country varchar(30) NOT NULL,
+    sign_up_date DATETIME NOT NULL,	
+    last_login DATETIME, 
     PRIMARY KEY(id), 
     UNIQUE(id),
     UNIQUE(username)

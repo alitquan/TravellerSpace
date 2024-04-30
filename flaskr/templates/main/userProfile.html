@@ -22,9 +22,12 @@
 	<div class = "section-content">
 		<button  id=toggleNav onclick="toggleDiv('navigator');event.preventDefault()"> Hide </button>
 		<p id = "p-name"> Username: {{user['username']}} </p> <br/> 
-        <p id = "p-email"> E-mail: {{user['email']}} </p> <br/>
-        <p id = "p-country"> Country: {{user['country']}} </p> <br/>
+		<p id = "p-email"> E-mail: {{user['email']}} </p> <br/>
+		<p id = "p-country"> Country: {{user['country']}} </p> <br/>
+		<p id = "p-reg-date"> Member Since: {{user['reg_date']}} </p> <br/> 
+		<p id = "p-last-login"> Last Login: {{user['last_login']}} </p> <br/> 
 		<p id ="p-about"> About: <p id ="p-bio"> {{user['bio']}} </p> </p> <br/>  
+		
 
 		<div id ="edit-bar"> 
 			<button id="button-edit-toggle"> Edit </button> 

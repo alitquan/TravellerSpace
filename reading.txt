@@ -17,5 +17,9 @@ flask init-db
 flask run
 flask_mysqldb -- pip
 ---
+if database created:
+	drop database travellerspace
+	create database travellerspace
+--
 sudo pacman -Syu mariadb
 sudo pacman -Syu pkgconf

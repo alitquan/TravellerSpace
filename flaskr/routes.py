@@ -6,6 +6,7 @@ import re
 from flask_mysqldb import MySQL
 import mysql.connector
 from flaskr.db import exec_insert,exec_select
+from datetime import datetime 
 
 
 bp = Blueprint ('routes',__name__)
@@ -28,6 +29,10 @@ def reg():
         _name = request.form.get('name')
         _email = request.form.get('email')
         _country = request.form.get('country')
+
+#get current date time
+        dateTime = datetime.now()
+        _regdate  = dateTime.strftime('%Y-%m-%d %H:%M:%S')
         print()
         if (isUsernameTaken(_username)):
             flash("Username was already taken") 
@@ -38,9 +43,16 @@ def reg():
         if (not validatePassword(_password)):
             flash("Password did not meet requirements") 
             return render_template('auth/registration.html') 
-        base="INSERT INTO Users(username,password,nickname,email,country)"
-        values=" VALUES ({username},{password},{nickname},{email},{country});"
-        values=values.format(username='"%s"'%_username,password='"%s"'%_password,nickname='"%s"'%_name,email='"%s"'%_email,country='"%s"'%_country)
+        base="INSERT INTO Users(username,password,nickname,email,country,sign_up_date)"
+        values=" VALUES ({username},{password},{nickname},{email},{country},{regdate});"
+        values=values.format(
+                username='"%s"'%_username,
+                password='"%s"'%_password,
+                nickname='"%s"'%_name,
+                email='"%s"'%_email,
+                country='"%s"'%_country,
+                regdate='"%s"'%_regdate
+        )
         print(base+values)
         exec_insert(base+values)
 
@@ -84,6 +96,14 @@ def login():
             print ("number: "+str(id))
             session['current_user']= id
             print ("Test: " + str(session.get('current_user')))
+
+            # logging the login time
+            dateTime = datetime.now()
+            loginTime  = dateTime.strftime('%Y-%m-%d %H:%M:%S')
+
+            query = "UPDATE Users SET last_login = \"{}\" WHERE id = {}".format(loginTime,id) 
+            print(query)
+            exec_insert(query)
             return redirect(url_for('routes.loggedIn',_id = id))
         else:
             flash("Invalid combination of username or password")
@@ -99,16 +119,18 @@ def loggedIn():
 @bp.route('/myProfile',methods=['POST','GET'])
 def viewMyProfile():
     _id = str(session.get('current_user'))
-    print ("My Profile: " + _id )
+    print ("Current User ID: " + _id )
 
-    query = ("SELECT username,email,country FROM Users"+
+    query = ("SELECT * FROM Users"+
              " WHERE ID =" + _id )
     output = exec_select(query)
     print ("user table output: " + str(output))
 
-    _username=output[0][0]
-    _email=output[0][1]
-    _country=output[0][2]
+    _username=output[0][1]
+    _email=output[0][3]
+    _country=output[0][5]
+    _regdate=output[0][6]
+    _lastlog=output[0][7]
 
 
     query2 = "SELECT * FROM Profiles WHERE user_id = {}".format(session['current_user'])
@@ -120,10 +142,13 @@ def viewMyProfile():
             'username':_username,
             'email':_email,
             'country':_country,
-            'bio':_bio
-            }
+            'bio':_bio,
+            'reg_date': _regdate,
+            'last_login':_lastlog
+    }
 
     return render_template("main/userProfile.html",user=user)
+
 
 # function for rendering a user profile based on the username
 @bp.route('/viewUserProfile/<_username>',methods=['POST','GET']) 
