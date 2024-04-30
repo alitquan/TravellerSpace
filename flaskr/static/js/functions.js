@@ -143,3 +143,21 @@ function getResults() {
     updateList(names);
   })
 }
+
+
+function updateProfile() {
+
+	let bio = document.getElementById("p-input").value;
+	console.log(bio)
+
+	fetch('/updateProfile', {
+		headers: {
+			'Content-Type':'application/json'
+		},
+		method:'POST',
+		body: JSON.stringify({
+			"bio":bio
+		})
+	})
+
+}

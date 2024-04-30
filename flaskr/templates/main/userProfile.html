@@ -24,11 +24,11 @@
 		<p id = "p-name"> Username: {{user['username']}} </p> <br/> 
         <p id = "p-email"> E-mail: {{user['email']}} </p> <br/>
         <p id = "p-country"> Country: {{user['country']}} </p> <br/>
-		<p id ="p-about"> About: <p id ="p-bio"> My name is victor</p> </p> <br/>  
+		<p id ="p-about"> About: <p id ="p-bio"> {{user['bio']}} </p> </p> <br/>  
 
 		<div id ="edit-bar"> 
 			<button id="button-edit-toggle"> Edit </button> 
-			<button id="button-save"> Save </button>
+			<button id="button-save" onclick="updateProfile()"> Save </button>
 			<button id="button-cancel"> Cancel </button>
 		</div>
 
@@ -39,6 +39,8 @@
 <script>
 document.getElementById("button-edit-toggle").addEventListener("click", myFunction);
 
+
+
 function myFunction() {
 
 	// replace bio with the input element
@@ -48,6 +50,7 @@ function myFunction() {
 	var input = document.createElement("input");
 	input.type = "text";
 	input.value= bodyText;
+	input.id = 'p-input'
 	bio.replaceWith(input); 
 
 	// make 2 other buttons disappear
@@ -57,12 +60,14 @@ function myFunction() {
 	cancelButton.style.display = 'block'
 	saveButton.innerText = 'Modified Save'; 
 	saveButton.onclick = function () {
+		updateProfile();
 		var newBio = document.createElement('p');
 		newBio.id ='p-bio';
 		newBio.innerText = input.value;
 		input.replaceWith(newBio);
 		saveButton.style.display = 'none';
 		cancelButton.style.diplay = 'none'; 
+
 	}
 
 	cancelButton.onclick = function () {
@@ -80,26 +85,10 @@ function myFunction() {
 document.getElementById("button-cancel").addEventListener("click", myFunction2);
 
 function myFunction2() {
-	/*
-	let saveButton = document.getElementById("button-save"); 
-
-	let button = document.createElement('BUTTON');
-	let text = document.createTextNode("Edit");
-	button.id='button-edit-toggle'; 
-	button.appendChild(text);
-	button.addEventListener("click", myFunction);
-
-
-	let editButton = document.getElementById("button-edit-toggle"); 
-	saveButton.replaceWith(button) 
-
-	let cancelButton = document.getElementById("button-cancel")
-	cancelButton.style.display = "None";
-
-
-	console.log("hello");
-	*/ 
+	console.log('myFunction2')
 }
+
+
 
 </script> 
 

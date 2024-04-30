@@ -104,12 +104,25 @@ def viewMyProfile():
     query = ("SELECT username,email,country FROM Users"+
              " WHERE ID =" + _id )
     output = exec_select(query)
-    print ("my profile query output: " + str(output))
+    print ("user table output: " + str(output))
 
     _username=output[0][0]
     _email=output[0][1]
     _country=output[0][2]
-    user = {'username':_username,'email':_email,'country':_country}
+
+
+    query2 = "SELECT * FROM Profiles WHERE user_id = {}".format(session['current_user'])
+    ret = exec_select (query2) 
+    _bio= ret[0][1] 
+
+    print("profiles table output: {}".format(str(ret))) 
+    user = {
+            'username':_username,
+            'email':_email,
+            'country':_country,
+            'bio':_bio
+            }
+
     return render_template("main/userProfile.html",user=user)
 
 # function for rendering a user profile based on the username
@@ -119,13 +132,29 @@ def viewUserProfile(_username=None):
     query = ("SELECT username,email,country from Users" +
              " WHERE username = " + username) 
     output = exec_select(query) 
-    print (output) 
     print ("Function ---- viewUserProfile")
-    print("Sucessfuly printed username " + _username) 
+    print("Sucessfuly printed userinfo for " + _username) 
+    print (output) 
     _username=output[0][0]
     _email=output[0][1]
     _country=output[0][2]
-    user = {'username':_username,'email':_email,'country':_country}
+
+    
+    currentUser =session['current_user']
+
+    # maybe need the target user
+    query2 = ("SELECT * from Profiles" +
+             " WHERE user_id = " + currentUser) 
+    output2 = exec_select(query2) 
+    print("Profile Info: ")
+    print(output2)
+
+
+    user = {'username':_username,
+            'email':_email,
+            'country':_country}
+
+
     return render_template("main/userProfile.html",user=user)
 
 
@@ -180,6 +209,16 @@ def getUsers():
     return 'OK'
 
 
+@bp.route("/getProfileInfo", methods=["GET"])
+def getProfile(): 
+    if request.method == 'GET':
+        print()
+        print("\ngetProfile()") 
+        print(query)
+        print(ret) 
+        return str(ret)
+    return '100'
+
 @bp.route("/getSearchTerm", methods=["POST"])
 def getSearch():
     if request.method == 'POST':
@@ -194,6 +233,20 @@ def getSearch():
         print(_ret)
         return str(_ret)
     return '100'
+
+@bp.route("/updateProfile", methods=["POST"])
+def updateUserProfile():
+    if request.method == 'POST':
+        incoming = request.get_json()
+        print("updateUserProfile()")
+        print(incoming)
+        bio = incoming ['bio']
+        currentUser =session['current_user']
+        query = "UPDATE Profiles SET bio = \"{}\" WHERE user_id = {}".format(bio,currentUser) 
+        print(query)
+        exec_insert(query)
+    return '100'
+   
 
 
 
