@@ -29,11 +29,14 @@
 		<p id ="p-about"> About: <p id ="p-bio"> {{user['bio']}} </p> </p> <br/>  
 		
 
+		{% if myProfile %} 
+
 		<div id ="edit-bar"> 
 			<button id="button-edit-toggle"> Edit </button> 
 			<button id="button-save" onclick="updateProfile()"> Save </button>
 			<button id="button-cancel"> Cancel </button>
 		</div>
+		{% endif %}
 
 	</div> 
 

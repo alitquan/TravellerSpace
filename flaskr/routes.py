@@ -115,14 +115,24 @@ def loggedIn():
     print("user has been logged in")
     return render_template("main/loggedIn.html" )
 
-#clicking on the My Profile Button
-@bp.route('/myProfile',methods=['POST','GET'])
+@bp.route('/viewMyProfile',methods=['POST','GET']) 
 def viewMyProfile():
-    _id = str(session.get('current_user'))
-    print ("Current User ID: " + _id )
+    id = str(session.get('current_user'))
+    return redirect(url_for('routes.viewProfile',user_id=id))
+
+#clicking on the My Profile Button
+@bp.route('/viewProfile<user_id>',methods=['POST','GET'])
+def viewProfile(user_id):
+
+    if user_id == str(session.get('current_user')):
+        _myProfile = True
+    else: 
+        _myProfile = False
+
+    print ("Looking for User ID: " + user_id )
 
     query = ("SELECT * FROM Users"+
-             " WHERE ID =" + _id )
+             " WHERE ID =" + user_id )
     output = exec_select(query)
     print ("user table output: " + str(output))
 
@@ -133,54 +143,37 @@ def viewMyProfile():
     _lastlog=output[0][7]
 
 
-    query2 = "SELECT * FROM Profiles WHERE user_id = {}".format(session['current_user'])
+    query2 = "SELECT * FROM Profiles WHERE user_id = {}".format(user_id)
     ret = exec_select (query2) 
     _bio= ret[0][1] 
 
     print("profiles table output: {}".format(str(ret))) 
-    user = {
+    _user = {
             'username':_username,
             'email':_email,
             'country':_country,
             'bio':_bio,
             'reg_date': _regdate,
             'last_login':_lastlog
+            
     }
 
-    return render_template("main/userProfile.html",user=user)
+    return render_template("main/userProfile.html",user=_user,myProfile=_myProfile)
 
 
 # function for rendering a user profile based on the username
 @bp.route('/viewUserProfile/<_username>',methods=['POST','GET']) 
 def viewUserProfile(_username=None):
     username = addQuotes(_username)
-    query = ("SELECT username,email,country from Users" +
+    query = ("SELECT id,username from Users" +
              " WHERE username = " + username) 
     output = exec_select(query) 
     print ("Function ---- viewUserProfile")
-    print("Sucessfuly printed userinfo for " + _username) 
+    print("Successfuly printed userinfo for " + _username) 
     print (output) 
-    _username=output[0][0]
-    _email=output[0][1]
-    _country=output[0][2]
-
-    
-    currentUser =session['current_user']
-
-    # maybe need the target user
-    query2 = ("SELECT * from Profiles" +
-             " WHERE user_id = " + currentUser) 
-    output2 = exec_select(query2) 
-    print("Profile Info: ")
-    print(output2)
-
-
-    user = {'username':_username,
-            'email':_email,
-            'country':_country}
-
-
-    return render_template("main/userProfile.html",user=user)
+    _id=output[0][0]
+    _username=output[0][1]
+    return redirect(url_for('routes.viewProfile',user_id=_id))
 
 
 @bp.route("/searchUsers", methods=['POST','GET'])
