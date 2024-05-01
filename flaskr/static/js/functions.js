@@ -38,10 +38,13 @@ function autoSlide() {
   slides[slideIndex-1].style.display = "block";
   setTimeout(autoSlide, 3500); // Change image every 2 seconds
 }
+
+
 function test() {
   let section = document.getElementById("navigator");
   console.log(section);
 }
+
 function toggleDiv (divname) {
 	let section = document.getElementById(divname); 
     console.log(section.clientHeight);
@@ -72,6 +75,7 @@ function passUserSearchQuery(query) {
   ).then((data) => getUserPage(data)) 
   console.log("pusq done")
 }
+
 
 function getUserPage(data) {
   console.log(data)
@@ -111,7 +115,6 @@ function updateList(names) {
 }
 
 function getResults() {
-
 
   let searchTerm = document.getElementById("bar").value; 
   let filter = document.getElementById("filters").value;
@@ -161,3 +164,38 @@ function updateProfile() {
 	})
 
 }
+
+
+// pos 0 -- about. it has the edit bar
+function togglePanel(target) {
+	console.log("togglePanel()");
+	let panels = document.querySelectorAll(".panel");
+
+
+	// get about panel height
+	let aboutHeight = document.getElementById('container-profile').offsetHeight;
+	console.log ("about height: " + aboutHeight); 
+
+	panels.forEach(function(panel, index) {
+		panel.style.minHeight = aboutHeight + 'px';
+		if (target == index) {
+			panel.style.display = 'block';
+			console.log ("new min height: " + panel.style.minHeight);
+		}
+		else {
+			panel.style.display = 'none';
+		}
+	});
+
+	let editBar = document.getElementById('edit-bar');
+
+	// remove editbar
+	if (target != 0) {
+		editBar.style.display = 'none';
+	}
+	else {
+		editBar.style.display = 'flex';
+	}
+
+}
+

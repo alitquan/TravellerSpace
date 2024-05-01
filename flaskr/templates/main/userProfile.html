@@ -11,23 +11,41 @@
 
 	<div id = "navigator"> 
 		<ul>
-			<li> About  </li> 
-			<li> Photos </li>
-			<li> Schedule </li> 
-			<li> Reviews </li>
+			<li> <a href="#" onclick="togglePanel(0);"> About </a>  </li> 
+			<li> <a href="#" onclick="togglePanel(1);">Photos  </a> </li>
+			<li> <a href="#" onclick="togglePanel(2);">Schedule </a> </li> 
+			<li> <a href="#" onclick="togglePanel(3);">Reviews </a> </li>
 		</ul> 
 
 	</div> 
 
 	<div class = "section-content">
-		<button  id=toggleNav onclick="toggleDiv('navigator');event.preventDefault()"> Hide </button>
-		<p id = "p-name"> Username: {{user['username']}} </p> <br/> 
-		<p id = "p-email"> E-mail: {{user['email']}} </p> <br/>
-		<p id = "p-country"> Country: {{user['country']}} </p> <br/>
-		<p id = "p-reg-date"> Member Since: {{user['reg_date']}} </p> <br/> 
-		<p id = "p-last-login"> Last Login: {{user['last_login']}} </p> <br/> 
-		<p id ="p-about"> About: <p id ="p-bio"> {{user['bio']}} </p> </p> <br/>  
-		
+		<div class = "container-content" id = "container-profile"> 
+			<div class = "panel" id = "about"> 
+				<button  id=toggleNav onclick="toggleDiv('navigator');event.preventDefault()"> Hide </button>
+				<p id = "p-name"> Username: {{user['username']}} </p> <br/> 
+				<p id = "p-email"> E-mail: {{user['email']}} </p> <br/>
+				<p id = "p-country"> Country: {{user['country']}} </p> <br/>
+				<p id = "p-reg-date"> Member Since: {{user['reg_date']}} </p> <br/> 
+				<p id = "p-last-login"> Last Login: {{user['last_login']}} </p> <br/> 
+				<p id ="p-panel"> About: <p id ="p-bio"> {{user['bio']}} </p> </p> <br/>  
+			</div>
+
+
+			<div class = "panel" id = "photos"> 
+				poop 
+			</div> 
+
+			<div class = "panel" id = "schedule"> 
+				schedule	
+			</div> 
+
+			<div class = "panel" id = "reviews"> 
+				reviews
+			</div> 
+
+
+		</div> 
 
 		{% if myProfile %} 
 
