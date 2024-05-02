@@ -170,26 +170,31 @@ function updateProfile() {
 function togglePanel(target) {
 	console.log("togglePanel()");
 	let panels = document.querySelectorAll(".panel");
+	let toggle = document.querySelectorAll(".panel-toggle");
+	
 
-
-	// get about panel height
+	// store about panel height
 	let aboutHeight = document.getElementById('container-profile').offsetHeight;
 	console.log ("about height: " + aboutHeight); 
 
+	// store navigator color
+	let navigatorColor = document.getElementById('navigator').style.color;
 	panels.forEach(function(panel, index) {
 		panel.style.minHeight = aboutHeight + 'px';
 		if (target == index) {
 			panel.style.display = 'block';
 			console.log ("new min height: " + panel.style.minHeight);
+			toggle[index].style.backgroundColor = 'blue'
 		}
 		else {
+			toggle[index].style.backgroundColor = navigatorColor
 			panel.style.display = 'none';
 		}
 	});
 
 	let editBar = document.getElementById('edit-bar');
 
-	// remove editbar
+	// (un)hide edit bar
 	if (target != 0) {
 		editBar.style.display = 'none';
 	}
