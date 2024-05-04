@@ -7,11 +7,24 @@ from flask.cli import with_appcontext
 from flask_mysqldb import MySQL
 import mysql.connector
 
+# replacing obsolete libraries
+import collections.abc
+collections.MutableMapping = collections.abc.MutableMapping
+collections.Mapping = collections.abc.Mapping
+collections.Sequence = collections.abc.Sequence
+
+# importing pymongo
+import pymongo
+import collections
+
+
 def get_db(): 
     cnx = mysql.connector.connect(user='root', password='Farzana1972$',
                                   host='127.0.0.1',
                                   database='TravellerSpace')
     return cnx
+
+
 
 def init_app(app):
     app.cli.add_command(init_db_command)
@@ -101,7 +114,41 @@ def exec_select(query):
         conn.close()
 
 
-'''
+# MongoDB functions
+
+def get_mongo_db():
+    client = pymongo.MongoClient("localhost", 27017)
+    db = client.TravellerSpace
+    return db
+
+def init_mongo_db(): 
+    mdb = get_mongo_db()
+    col = mdb.test
+    col.insert_one({"id":1,"pass":1})
+
+def insertMongoDB(col, query):
+    mdb = get_mongo_db()
+    col = mdb.query
+    col.insert_one(query)
+
+
+def getMessages(): 
+    print("getting messages")
+    mdb = get_mongo_db()
+    col = mdb.chatroom
+    print(col)
+    output = "" 
+    for x in col.find({}):
+        output += str(x) 
+        output += "\n" 
+    print(output)
+    print("done getting messages")
+    return output
+
+
+
+
+    '''
 def init_db():
     db = get_db()
     conn = db.connection

@@ -1,0 +1,16 @@
+{% extends 'main/loggedIn.html'%}
+
+{% block head %} 
+<link rel="stylesheet" href="{{url_for('static',filename='css/search.css')}}"> 
+<script src ="../../static/js/functions.js"> </script>
+
+{% endblock %}
+
+{% block content %} 
+
+Hello G
+
+<a href="{{url_for('routes.getChatroomMessages')}}">See Messages</a> 
+
+{% endblock %}
+

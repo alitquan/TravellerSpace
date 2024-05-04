@@ -5,7 +5,7 @@ from flask import current_app
 import re
 from flask_mysqldb import MySQL
 import mysql.connector
-from flaskr.db import exec_insert,exec_select
+from flaskr.db import( exec_insert,exec_select,getMessages)
 from datetime import datetime 
 
 
@@ -180,6 +180,10 @@ def viewUserProfile(_username=None):
 def userSearch():
     return render_template("main/navbar/searchBar.html")
 
+@bp.route("/chatroom", methods=['GET'])
+def chatRoom(): 
+    return render_template("main/navbar/chatRoom.html")
+
 '''
 clicking on username in searchbar
 '''
@@ -266,6 +270,12 @@ def updateUserProfile():
     return '100'
    
 
+@bp.route("/getMessages", methods = ["GET"]) 
+def getChatroomMessages(): 
+    if request.method == 'GET':
+            query = getMessages()            
+            return str(query)
+    return '100'
 
 
 #auxilary methods 
