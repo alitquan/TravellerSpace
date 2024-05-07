@@ -1,16 +1,53 @@
 {% extends 'main/loggedIn.html'%}
 
 {% block head %} 
-<link rel="stylesheet" href="{{url_for('static',filename='css/search.css')}}"> 
+<link rel="stylesheet" href="{{url_for('static',filename='css/chat.css')}}"> 
 <script src ="../../static/js/functions.js"> </script>
 
 {% endblock %}
 
 {% block content %} 
+	<a href="{{url_for('routes.getChatroomMessages')}}">See Messages</a> 
+<div class="flex-container"> 
+	<div class="flex-item" id="chat-box">
+		hello
 
-Hello G
+	</div>
+	<div class="flex-item" id="chat-input">
+		<input id="bar" class="chat-input-bar" type="text" placeholder="Chat Here">
+		<ul id="search-results"> 
+		</ul>
+		<button id="chat-submit" class="chat-input-bar" onclick="submitChat()"> Chat </button>
+	</div>
+</div> 
 
-<a href="{{url_for('routes.getChatroomMessages')}}">See Messages</a> 
+
+
+<script>
+
+	async function getMessages() {
+		try {
+			const response = await fetch('/getMessages');
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			console.error ('Errors: ', error);
+		}
+	}
+
+	async function fillChatBox() { 
+		let chatbox = document.getElementById("chat-box");
+		let data = await getMessages();
+		<!-- let html = data.map(message=> `<div> $(message.txt}</div>`).join(''); -->
+		chatbox.innerHTML = data;
+	}
+
+	document.addEventListener('DOMContentLoaded', fillChatBox)
+
+
+</script>
+
+
 
 {% endblock %}
 

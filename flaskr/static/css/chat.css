@@ -1,0 +1,34 @@
+.flex-container {
+    display: flex;
+    flex-direction: column; /* Or row, depending on your layout */
+    height: 40em; /* Ensure the container fills its parent */
+    border: 2px solid black; /* Just for visualization */
+    position: relative;
+    padding: 1em;
+}
+
+.flex-item {
+    flex-grow: 1;
+    background-color: blue;
+    position:relative;
+}
+
+#chat-box {
+    height: 90%;
+    background-color: red;
+}
+
+#chat-input {
+    display: flex;
+    justify-content: center;
+    max-height: 2em;
+}
+
+#bar {
+    width: 80%;
+}
+
+.chat-input-bar {
+    margin:.25em;
+}
+

@@ -24,6 +24,7 @@
 <div class = "admin-panel"> 
 	<button id="get-users" onclick="getResults()"> Get all Users </button>
 	<a href="{{url_for('routes.getUsers')}}">See users</a> 
+
 </div> 
 
 
@@ -33,7 +34,7 @@
 	console.log(tagged.innerHTML);
 	tagged.addEventListener('input',
 		function(){
-			console.log("hi");
+			console.log("searchBar.html -- script");
 			getResults(); 
 		}
 	); 

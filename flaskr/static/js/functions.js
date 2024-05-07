@@ -204,3 +204,39 @@ function togglePanel(target) {
 
 }
 
+
+// function getMessages() {
+// 	console.log("js/getMessages()");
+// 	fetch('/getMessages')
+// 	.then(response => {
+// 		console.log("returning");
+// 		console.log(response.json());
+// 		return response.json(); 
+// 	})
+// 	// fetch('/getMessages', {
+// 	// 	headers: {
+// 	// 		'Content-Type' : 'application/json'
+// 	// 	},
+// 	// 	method: 'GET' 
+// 	// }).then(function(response){
+// 	// 	console.log(response);
+// 	// 	return response;
+// 	// })
+// }
+
+function submitChat() { 
+	let bar = document.getElementById("bar");
+	let msg = document.getElementById("bar").value;
+	fetch ('/submitChat', {
+	    headers : {
+	      'Content-Type': 'application/json'
+	    },
+	    method:'POST',
+	    body: JSON.stringify({
+	      "msg":msg,
+	    })
+	  })
+	bar.value=""; 
+} 
+
+

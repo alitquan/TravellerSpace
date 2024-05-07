@@ -1,11 +1,13 @@
 import sqlite3
 import re
 import click
+import json
 import sys
 from flask import current_app, g
 from flask.cli import with_appcontext
 from flask_mysqldb import MySQL
 import mysql.connector
+from datetime import datetime
 
 # replacing obsolete libraries
 import collections.abc
@@ -142,11 +144,17 @@ def getMessages():
         output += str(x) 
         output += "\n" 
     print(output)
-    print("done getting messages")
-    return output
+    print("done getting messages \n")
+    return json.dumps(output)
 
-
-
+def pushMessage(user_id, body):
+    current_time = datetime.now(); 
+    message = { "timestamp": current_time, "userID": user_id, "body": body}
+    print("getting messages")
+    mdb = get_mongo_db()
+    col = mdb.chatroom
+    pushed = col.insert_one(message);
+    print (pushed)
 
     '''
 def init_db():

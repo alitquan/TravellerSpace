@@ -5,9 +5,9 @@ from flask import current_app
 import re
 from flask_mysqldb import MySQL
 import mysql.connector
-from flaskr.db import( exec_insert,exec_select,getMessages)
+from flaskr.db import( exec_insert,exec_select,getMessages, pushMessage)
 from datetime import datetime 
-
+import json
 
 bp = Blueprint ('routes',__name__)
 cnx = mysql.connector.connect(user='root', password='Farzana1972$',
@@ -269,14 +269,24 @@ def updateUserProfile():
         exec_insert(query)
     return '100'
    
-
+# chatroom
 @bp.route("/getMessages", methods = ["GET"]) 
 def getChatroomMessages(): 
     if request.method == 'GET':
-            query = getMessages()            
-            return str(query)
+        query = getMessages()            
+        return query
     return '100'
 
+@bp.route("/submitChat", methods = ["POST"])
+def submitChatMessage():
+    if request.method == 'POST':
+        incoming = request.get_json()
+        print("submitChatMessages")
+        print(incoming)
+        usr_id = session['current_user']
+        msg    = incoming ['msg']
+        pushMessage (usr_id,msg)
+    return '100'
 
 #auxilary methods 
 
