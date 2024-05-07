@@ -205,25 +205,6 @@ function togglePanel(target) {
 }
 
 
-// function getMessages() {
-// 	console.log("js/getMessages()");
-// 	fetch('/getMessages')
-// 	.then(response => {
-// 		console.log("returning");
-// 		console.log(response.json());
-// 		return response.json(); 
-// 	})
-// 	// fetch('/getMessages', {
-// 	// 	headers: {
-// 	// 		'Content-Type' : 'application/json'
-// 	// 	},
-// 	// 	method: 'GET' 
-// 	// }).then(function(response){
-// 	// 	console.log(response);
-// 	// 	return response;
-// 	// })
-// }
-
 function submitChat() { 
 	let bar = document.getElementById("bar");
 	let msg = document.getElementById("bar").value;
@@ -238,5 +219,22 @@ function submitChat() {
 	  })
 	bar.value=""; 
 } 
+
+function populateMessages (mJSON) {
+	console.log("\npopulateMessages()");
+
+	let ul = document.getElementById("messages-list");
+	console.log(ul);
+	mJSON.forEach( msg => {
+		let body = msg['body'];
+    		var li = document.createElement("li");
+		var para = document.createElement("p");
+		para.innerText = body; 
+		li.classList.add("chat-msg");
+		li.appendChild(para);
+		ul.append(li);
+		console.log(li);
+	});
+}
 
 

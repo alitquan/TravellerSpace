@@ -274,6 +274,7 @@ def updateUserProfile():
 def getChatroomMessages(): 
     if request.method == 'GET':
         query = getMessages()            
+        print()
         return query
     return '100'
 

@@ -9,11 +9,14 @@
 {% block content %} 
 	<a href="{{url_for('routes.getChatroomMessages')}}">See Messages</a> 
 <div class="flex-container"> 
-	<div class="flex-item" id="chat-box">
-		hello
+	<div id="chat-box" class="flex-item" >
+		<ul id="messages-list">
+
+		</ul>
 
 	</div>
-	<div class="flex-item" id="chat-input">
+
+	<div id="chat-input" class="flex-item" >
 		<input id="bar" class="chat-input-bar" type="text" placeholder="Chat Here">
 		<ul id="search-results"> 
 		</ul>
@@ -29,6 +32,9 @@
 		try {
 			const response = await fetch('/getMessages');
 			const data = await response.json();
+			<!-- console.log("\ngetMessages()") -->
+			<!-- console.log(data) -->
+			<!-- console.log() --> 
 			return data;
 		} catch (error) {
 			console.error ('Errors: ', error);
@@ -38,8 +44,11 @@
 	async function fillChatBox() { 
 		let chatbox = document.getElementById("chat-box");
 		let data = await getMessages();
-		<!-- let html = data.map(message=> `<div> $(message.txt}</div>`).join(''); -->
-		chatbox.innerHTML = data;
+		console.log("\nfillChatBox");
+		console.log(data);
+		console.log();
+		<!-- chatbox.innerHTML = JSON.stringify(data); -->
+		populateMessages (data);
 	}
 
 	document.addEventListener('DOMContentLoaded', fillChatBox)

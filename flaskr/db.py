@@ -3,7 +3,7 @@ import re
 import click
 import json
 import sys
-from flask import current_app, g
+from flask import current_app, g, jsonify
 from flask.cli import with_appcontext
 from flask_mysqldb import MySQL
 import mysql.connector
@@ -135,17 +135,31 @@ def insertMongoDB(col, query):
 
 
 def getMessages(): 
-    print("getting messages")
     mdb = get_mongo_db()
     col = mdb.chatroom
     print(col)
-    output = "" 
-    for x in col.find({}):
-        output += str(x) 
-        output += "\n" 
-    print(output)
-    print("done getting messages \n")
-    return json.dumps(output)
+    docList = list() 
+    print ("getMessages")
+    for x in col.find({}).sort("timestamp",-1):
+        docList.append(x)  
+        print(x) 
+
+    print("\nCheck this out: ") 
+    print(docList)
+
+    # Convert ObjectId to strings
+    for item in docList:
+        item["_id"] = str(item["_id"])
+        item["timestamp"] = item["timestamp"].isoformat()
+
+
+    print("\nTurned into json: ") 
+    output = json.dumps(docList) 
+    print(output) 
+
+    print() 
+    return output
+
 
 def pushMessage(user_id, body):
     current_time = datetime.now(); 
