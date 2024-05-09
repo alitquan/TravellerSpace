@@ -23,3 +23,18 @@ if database created:
 --
 sudo pacman -Syu mariadb
 sudo pacman -Syu pkgconf
+--
+==  mongodb installation ==  
+sudo pacman -Syu
+sudo pacman -S --needed base-devel git
+git clone https://aur.archlinux.org/yay-git.git
+cd yay-git
+makepkg -sri
+pamac install yay
+yay -S mongodb-bin
+sudo systemctl start mongodb
+sudo systemctl status mongodb
+sudo systemctl enable mongodb
+--
+== mongodb delete == 
+sudo pacman -Rns mongodb-bin

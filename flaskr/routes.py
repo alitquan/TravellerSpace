@@ -62,6 +62,19 @@ def reg():
     return render_template('auth/registration.html')
 
 
+@bp.route('/getUsername', methods=['GET'])
+def getUsername():
+    print ("getUsername() -- called") 
+    _id = request.args.get("id")
+    query = "SELECT username from Users WHERE id = {};".format(_id)
+    output = exec_select(query) 
+
+    # exec_select always returns a 2D array
+    print (query)
+    print (output)
+    name = output[0][0]
+    return jsonify(name)
+
 def createProfile(_username): 
     _username='\'%s\'' % _username 
     query = ("SELECT ID FROM Users"+
@@ -82,7 +95,6 @@ def login():
     if request.method == 'POST':
         _username=request.form.get('login-username',"")
         _username='\'%s\'' % _username
-        print (_username)
         _password=request.form.get('login-password',"")
         _password='\'%s\'' % _password
 
@@ -94,6 +106,7 @@ def login():
             print("routes.py output ---> %s" % output)
             id = output[0][0]
             print ("number: "+str(id))
+            session.clear()
             session['current_user']= id
             print ("Test: " + str(session.get('current_user')))
 

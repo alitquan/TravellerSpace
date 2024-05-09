@@ -139,13 +139,14 @@ def getMessages():
     col = mdb.chatroom
     print(col)
     docList = list() 
-    print ("getMessages")
+    print ("\ngetMessages")
     for x in col.find({}).sort("timestamp",-1):
         docList.append(x)  
         print(x) 
 
     print("\nCheck this out: ") 
     print(docList)
+    print("getMessages finished\n")
 
     # Convert ObjectId to strings
     for item in docList:

@@ -220,21 +220,38 @@ function submitChat() {
 	bar.value=""; 
 } 
 
-function populateMessages (mJSON) {
-	console.log("\npopulateMessages()");
 
-	let ul = document.getElementById("messages-list");
-	console.log(ul);
-	mJSON.forEach( msg => {
-		let body = msg['body'];
-    		var li = document.createElement("li");
-		var para = document.createElement("p");
-		para.innerText = body; 
-		li.classList.add("chat-msg");
-		li.appendChild(para);
-		ul.append(li);
-		console.log(li);
-	});
+async function idToName (id) {
+	try { 
+		const param1 = id;
+		const url = `/getUsername?id=${encodeURIComponent(param1)}`
+		const name = await fetch(url);
+		const ret = await name.json();
+		console.log("This is the promise: ");
+		console.log(ret); 
+		return ret;
+		// return JSON.stringify(ret);
+	}
+	catch (error) {
+		console.error ('Errors: ', error);
+	}
 }
 
+async function populateMessages(mJSON) {
+    console.log("\npopulateMessages()");
+    console.log(mJSON);
+    console.log("populateMessages json done");
+    let ul = document.getElementById("messages-list");
 
+    for (const msg of mJSON) {
+        let _username = await idToName(msg['userID']);
+        let body = msg['body'];
+        let _msg = "{username} : {msg}".replace("{msg}", body).replace("{username}", _username);
+        var li = document.createElement("li");
+        var para = document.createElement("p");
+        para.innerText = _msg;
+        li.classList.add("chat-msg");
+        li.appendChild(para);
+        ul.appendChild(li);
+    }
+}
