@@ -20,6 +20,11 @@ def index():
     print("hey")
     return render_template('main/first.html')
 
+@bp.route('/socket.io/')
+def socketio_route():
+    print("Received request:", request)
+    return "This is the socket.io route"
+
 @bp.route('/register', methods=['POST','GET'])
 def reg():
     if request.method == 'POST':
@@ -64,14 +69,14 @@ def reg():
 
 @bp.route('/getUsername', methods=['GET'])
 def getUsername():
-    print ("getUsername() -- called") 
+    # print ("getUsername() -- called") 
     _id = request.args.get("id")
     query = "SELECT username from Users WHERE id = {};".format(_id)
     output = exec_select(query) 
 
     # exec_select always returns a 2D array
-    print (query)
-    print (output)
+    # print (query)
+    # print (output)
     name = output[0][0]
     return jsonify(name)
 
@@ -81,7 +86,7 @@ def createProfile(_username):
             " WHERE USERNAME =" + _username+";") 
     output = exec_select(query)
     print("created profile")
-    print(output) 
+    # print(output) 
     id = output[0][0]
     
     query2 = "INSERT INTO Profiles(user_id) VALUES ({});".format(id)
@@ -93,6 +98,7 @@ def createProfile(_username):
 @bp.route('/loginCall', methods=['POST','GET'])
 def login():
     if request.method == 'POST':
+        cleanUp()
         _username=request.form.get('login-username',"")
         _username='\'%s\'' % _username
         _password=request.form.get('login-password',"")
@@ -106,7 +112,6 @@ def login():
             print("routes.py output ---> %s" % output)
             id = output[0][0]
             print ("number: "+str(id))
-            session.clear()
             session['current_user']= id
             print ("Test: " + str(session.get('current_user')))
 
@@ -303,6 +308,9 @@ def submitChatMessage():
     return '100'
 
 #auxilary methods 
+
+def cleanUp():
+    session.clear()
 
 def addQuotes(word):
     return "\"" + word + "\""

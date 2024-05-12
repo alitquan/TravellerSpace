@@ -102,11 +102,11 @@ def exec_select(query):
     try:
         conn = get_db()
         cursor = conn.cursor()
-        print("Query: %s " % query)
+        # print("Query: %s " % query)
         cursor.execute(query)
-        print("select query executed")
+        # print("select query executed")
         result = cursor.fetchall()
-        print("Results: %s \n" % result)
+        # print("Results: %s \n" % result)
         cursor.close()
         return result
     except:
@@ -137,16 +137,16 @@ def insertMongoDB(col, query):
 def getMessages(): 
     mdb = get_mongo_db()
     col = mdb.chatroom
-    print(col)
+    # print(col)
     docList = list() 
-    print ("\ngetMessages")
+    # print ("\ngetMessages")
     for x in col.find({}).sort("timestamp",-1):
         docList.append(x)  
-        print(x) 
+        # print(x) 
 
-    print("\nCheck this out: ") 
-    print(docList)
-    print("getMessages finished\n")
+    # print("\nCheck this out: ") 
+    # print(docList)
+    # print("getMessages finished\n")
 
     # Convert ObjectId to strings
     for item in docList:
@@ -154,9 +154,9 @@ def getMessages():
         item["timestamp"] = item["timestamp"].isoformat()
 
 
-    print("\nTurned into json: ") 
+    # print("\nTurned into json: ") 
     output = json.dumps(docList) 
-    print(output) 
+    # print(output) 
 
     print() 
     return output
@@ -170,6 +170,12 @@ def pushMessage(user_id, body):
     col = mdb.chatroom
     pushed = col.insert_one(message);
     print (pushed)
+
+
+def testThread():
+    print("Sumo")
+
+
 
     '''
 def init_db():

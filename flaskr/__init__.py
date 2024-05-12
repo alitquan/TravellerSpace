@@ -5,6 +5,7 @@ from flask_mysqldb import MySQL
 def create_app(test_config=None):
     app = Flask (__name__, instance_relative_config=True)
 
+
     # will be migrated to config.py
     app.config.from_mapping(
         DATABASE = os.path.join(app.instance_path,'flaskr.sqlite'),
@@ -30,4 +31,16 @@ def create_app(test_config=None):
     print(app.config['DATABASE'])
     print(app.config['STATIC_URL_PATH'])
     app.app_context().push()
+
+
+    # # Clean up resources before shutting down
+    # @app.teardown_appcontext
+    # def teardown_appcontext(exception=None):
+    #     # Clean up resources here
+    #     print("Cleaning up before shutting down Flask application")
+
+    # # Register a cleanup function using atexit
+    # def cleanup():
+    #     # Clean up resources here
+    #     print("Cleaning up before exiting the application")
     return app

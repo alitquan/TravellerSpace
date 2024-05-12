@@ -4,7 +4,10 @@
 <link rel="stylesheet" href="{{url_for('static',filename='css/chat.css')}}"> 
 <script src ="../../static/js/functions.js"> </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+
 {% endblock %}
+
 
 {% block content %} 
 	<a href="{{url_for('routes.getChatroomMessages')}}">See Messages</a> 
@@ -57,6 +60,23 @@
 </script>
 
 
+<script> 
+    const socket = io();
+    socket.on('connect', function() {
+	    console.log("connected to server2");
+
+	    // Emit events after the connection is established
+	    socket.emit('ding', 'Some data to send to the server');
+	    <!-- socket.emit('disconnect', 'soup'); -->
+    });
+
+    // Add event listeners for any responses from the server (optional)
+    socket.on('response_event', function(data) {
+	console.log('Received response from server:', data);
+    });
+</script>
+
 
 {% endblock %}
+
 
