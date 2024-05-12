@@ -32,6 +32,8 @@ def create_app(test_config=None):
     print(app.config['STATIC_URL_PATH'])
     app.app_context().push()
 
+         
+
 
     # # Clean up resources before shutting down
     # @app.teardown_appcontext

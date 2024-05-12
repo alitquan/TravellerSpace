@@ -16,6 +16,8 @@
 #chat-box {
     height: 90%;
     background-color: red;
+    max-height: 30em; /* Set the maximum height of the container */
+    overflow-y: auto;
 }
 
 #chat-input {
@@ -36,5 +38,4 @@
    list-style-type: none;
 
 } 
-
 

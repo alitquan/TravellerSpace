@@ -134,6 +134,12 @@ def insertMongoDB(col, query):
     col.insert_one(query)
 
 
+def getMessagesCollection():
+    mdb = get_mongo_db()
+    col = mdb.chatroom
+    return col
+
+
 def getMessages(): 
     mdb = get_mongo_db()
     col = mdb.chatroom

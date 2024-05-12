@@ -31,6 +31,42 @@
 
 <script>
 
+
+    const socket = io();
+    socket.on('connect', function() {
+	    console.log("connected to server2");
+
+	    // Emit events after the connection is established
+	    socket.emit('ding', 'Some data to send to the server');
+	    <!-- socket.emit('disconnect', 'soup'); -->
+    });
+
+    // Add event listeners for any responses from the server (optional)
+    socket.on('response_event', function(data) {
+	console.log('Received response from server:', data);
+    });
+
+
+    socket.on('new_message', function(data) {
+	console.log('Received new message from server:', data);
+
+	var ul = document.getElementById("messages-list") 
+	var li = document.createElement("li");
+        var para = document.createElement("p");
+        para.innerText = "doodoo";
+        li.classList.add("chat-msg");
+        li.appendChild(para);
+        ul.appendChild(li);
+	console.log(li);
+	console.log(ul);
+
+	// Scroll to the bottom of the container after adding a new message
+	var container = document.getElementById("chat-box");
+	container.scrollTop = container.scrollHeight;
+
+
+    });
+
 	async function getMessages() {
 		try {
 			const response = await fetch('/getMessages');
@@ -57,23 +93,8 @@
 	document.addEventListener('DOMContentLoaded', fillChatBox)
 
 
-</script>
 
 
-<script> 
-    const socket = io();
-    socket.on('connect', function() {
-	    console.log("connected to server2");
-
-	    // Emit events after the connection is established
-	    socket.emit('ding', 'Some data to send to the server');
-	    <!-- socket.emit('disconnect', 'soup'); -->
-    });
-
-    // Add event listeners for any responses from the server (optional)
-    socket.on('response_event', function(data) {
-	console.log('Received response from server:', data);
-    });
 </script>
 
 
