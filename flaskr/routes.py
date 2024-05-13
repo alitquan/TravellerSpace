@@ -80,6 +80,24 @@ def getUsername():
     name = output[0][0]
     return jsonify(name)
 
+@bp.route('/lookupID', methods=['GET'])
+def idToName():
+    print ("idToName() -- called") 
+    _id = request.args.get("userID")
+    query = "SELECT username from Users WHERE id = {};".format(_id)
+    print(query)
+    output = exec_select(query) 
+
+    # exec_select always returns a 2D array
+    # print (query)
+    # print (output)
+    name = output[0][0]
+    
+    print ("idToName() output: ", name)
+    return jsonify(name)
+
+
+
 def createProfile(_username): 
     _username='\'%s\'' % _username 
     query = ("SELECT ID FROM Users"+
@@ -196,7 +214,7 @@ def viewUserProfile(_username=None):
 
 @bp.route("/searchUsers", methods=['POST','GET'])
 def userSearch():
-    return render_template("main/navbar/searchBar.html")
+   return render_template("main/navbar/searchBar.html")
 
 @bp.route("/chatroom", methods=['GET'])
 def chatRoom(): 

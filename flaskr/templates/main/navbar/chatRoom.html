@@ -32,44 +32,62 @@
 <script>
 
 
-    const socket = io();
-    socket.on('connect', function() {
+	const socket = io();
+	socket.on('connect', function() {
 	    console.log("connected to server2");
 
 	    // Emit events after the connection is established
 	    socket.emit('ding', 'Some data to send to the server');
-	    <!-- socket.emit('disconnect', 'soup'); -->
-    });
-
-    // Add event listeners for any responses from the server (optional)
-    socket.on('response_event', function(data) {
-	console.log('Received response from server:', data);
-    });
+	});
 
 
-    socket.on('new_message', function(data) {
+	// Random - Add event listeners for any responses from the server (optional)
+	socket.on('response_event', function(data) {
+		console.log('response_event socket:', data);
+	});
+
+
+	socket.on('new_message', function(data) {
 	console.log('Received new message from server:', data);
-
-	var ul = document.getElementById("messages-list") 
-	var li = document.createElement("li");
-        var para = document.createElement("p");
-        para.innerText = "doodoo";
-        li.classList.add("chat-msg");
-        li.appendChild(para);
-        ul.appendChild(li);
-	console.log(li);
-	console.log(ul);
-
-	// Scroll to the bottom of the container after adding a new message
-	var container = document.getElementById("chat-box");
-	container.scrollTop = container.scrollHeight;
+	console.log(data.msg);
+	console.log(data.userID);
+	const searchID = data.userID;
+	const msgText = data.msg;
 
 
-    });
+	fetch(`/lookupID?userID=${searchID}`)
+		.then (response => response.text())
+		.then ( name => {
+			console.log("This is the name: ", name); 
+
+			var ul = document.getElementById("messages-list") 
+			var li = document.createElement("li");
+			var para = document.createElement("p");
+			
+			//routing returns like the following: '"soomika" '
+			//so the quotes had to be remove [0] [-2]. The white space is [-1], so it is also removed since -2 is 
+			var retVal = name.slice(1,-2) + ': ' + msgText.trim(); 
+
+
+			para.innerText = retVal; 
+			li.classList.add("chat-msg");
+			li.appendChild(para);
+			ul.appendChild(li);
+			console.log(li);
+			console.log(ul);
+
+			// Scroll to the bottom of the container after adding a new message
+			var container = document.getElementById("chat-box");
+			container.scrollTop = container.scrollHeight;
+
+		}); 
+
+	});
 
 	async function getMessages() {
 		try {
 			const response = await fetch('/getMessages');
+
 			const data = await response.json();
 			<!-- console.log("\ngetMessages()") -->
 			<!-- console.log(data) -->
