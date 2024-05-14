@@ -56,7 +56,7 @@
 
 
 	fetch(`/lookupID?userID=${searchID}`)
-		.then (response => response.text())
+		.then ( response => response.text())
 		.then ( name => {
 			console.log("This is the name: ", name); 
 
@@ -85,6 +85,7 @@
 	});
 
 	async function getMessages() {
+
 		try {
 			const response = await fetch('/getMessages');
 
@@ -98,7 +99,9 @@
 		}
 	}
 
+
 	async function fillChatBox() { 
+
 		let chatbox = document.getElementById("chat-box");
 		let data = await getMessages();
 		console.log("\nfillChatBox");

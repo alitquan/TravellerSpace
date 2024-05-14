@@ -182,7 +182,7 @@ function togglePanel(target) {
 	panels.forEach(function(panel, index) {
 		panel.style.minHeight = aboutHeight + 'px';
 		if (target == index) {
-			panel.style.display = 'block';
+			panel.style.display = 'flex';
 			console.log ("new min height: " + panel.style.minHeight);
 			toggle[index].style.backgroundColor = 'blue'
 		}

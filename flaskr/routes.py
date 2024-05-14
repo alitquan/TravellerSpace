@@ -20,10 +20,12 @@ def index():
     print("hey")
     return render_template('main/first.html')
 
+
 @bp.route('/socket.io/')
 def socketio_route():
     print("Received request:", request)
     return "This is the socket.io route"
+
 
 @bp.route('/register', methods=['POST','GET'])
 def reg():
@@ -80,6 +82,7 @@ def getUsername():
     name = output[0][0]
     return jsonify(name)
 
+
 @bp.route('/lookupID', methods=['GET'])
 def idToName():
     print ("idToName() -- called") 
@@ -97,7 +100,6 @@ def idToName():
     return jsonify(name)
 
 
-
 def createProfile(_username): 
     _username='\'%s\'' % _username 
     query = ("SELECT ID FROM Users"+
@@ -110,7 +112,6 @@ def createProfile(_username):
     query2 = "INSERT INTO Profiles(user_id) VALUES ({});".format(id)
     exec_insert(query2)
     print ("this is query" + query2)
-
 
 
 @bp.route('/loginCall', methods=['POST','GET'])
@@ -151,10 +152,12 @@ def loggedIn():
     print("user has been logged in")
     return render_template("main/loggedIn.html" )
 
+
 @bp.route('/viewMyProfile',methods=['POST','GET']) 
 def viewMyProfile():
     id = str(session.get('current_user'))
     return redirect(url_for('routes.viewProfile',user_id=id))
+
 
 #clicking on the My Profile Button
 @bp.route('/viewProfile<user_id>',methods=['POST','GET'])
@@ -197,6 +200,7 @@ def viewProfile(user_id):
     return render_template("main/userProfile.html",user=_user,myProfile=_myProfile)
 
 
+
 # function for rendering a user profile based on the username
 @bp.route('/viewUserProfile/<_username>',methods=['POST','GET']) 
 def viewUserProfile(_username=None):
@@ -216,9 +220,11 @@ def viewUserProfile(_username=None):
 def userSearch():
    return render_template("main/navbar/searchBar.html")
 
+
 @bp.route("/chatroom", methods=['GET'])
 def chatRoom(): 
     return render_template("main/navbar/chatRoom.html")
+
 
 '''
 clicking on username in searchbar
@@ -277,6 +283,7 @@ def getProfile():
         return str(ret)
     return '100'
 
+
 @bp.route("/getSearchTerm", methods=["POST"])
 def getSearch():
     if request.method == 'POST':
@@ -292,6 +299,7 @@ def getSearch():
         return str(_ret)
     return '100'
 
+
 @bp.route("/updateProfile", methods=["POST"])
 def updateUserProfile():
     if request.method == 'POST':
@@ -305,6 +313,21 @@ def updateUserProfile():
         exec_insert(query)
     return '100'
    
+
+
+@bp.route('/photo-upload', methods=['POST'])
+def upload_file():
+    if 'file' in request.files:
+        print ("upload_file()")
+        file = request.files['file']
+        
+        # Process the file (e.g., save it, validate, etc.)
+        # Your custom logic here
+        return "File uploaded successfully!"
+    else:
+        print ("no file found")
+        return "No file provided."
+
 # chatroom
 @bp.route("/getMessages", methods = ["GET"]) 
 def getChatroomMessages(): 
@@ -313,6 +336,7 @@ def getChatroomMessages():
         print()
         return query
     return '100'
+
 
 @bp.route("/submitChat", methods = ["POST"])
 def submitChatMessage():
@@ -330,8 +354,10 @@ def submitChatMessage():
 def cleanUp():
     session.clear()
 
+
 def addQuotes(word):
     return "\"" + word + "\""
+
 
 def isUsernameTaken (value):
     query = "SELECT USERNAME FROM Users WHERE USERNAME = '%s';" % value
@@ -341,6 +367,7 @@ def isUsernameTaken (value):
         return True
     else:
         return False 
+
 
 def validatePassword(value):
     numbers=False

@@ -1,4 +1,4 @@
-.profile-container { 
+#profile-container { 
 	display: flex;
 	flex-direction: row;
 	min-height:15em;
@@ -47,12 +47,38 @@
 	cursor:pointer;
 }
 
+.panel {
+	display:flex;
+	flex-direction: column; 
+}
+
 #about {
 	display:block;
 }
 
 #photos {
 	display:none;
+	height: 100%;
+}
+
+#load-photos {
+	flex-grow: 8;
+	background-color: #1dbf48;
+}
+
+#submit-photos {
+	flex-grow: 2;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#submit-button {
+	background: url(../images/spacePhotoAdd2.jpg);
+	background-size:cover;
+	height: 7em;
+	width: 7em;
 }
 
 #schedule {

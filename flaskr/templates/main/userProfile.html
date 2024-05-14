@@ -7,7 +7,9 @@
 {% endblock %} 
 
 {% block content %}
-<div class = "profile-container"> 
+
+<!-- was class not id -->
+<div id = "profile-container"> 
 
 	<div id = "navigator"> 
 		<ul>
@@ -20,7 +22,7 @@
 	</div> 
 
 	<div class = "section-content">
-		<div class = "container-content" id = "container-profile"> 
+		<div class = "container" id = "container-profile"> 
 			<div class = "panel" id = "about"> 
 				<button  id=toggleNav onclick="toggleDiv('navigator');event.preventDefault()"> Hide </button>
 				<p id = "p-name"> Username: {{user['username']}} </p> <br/> 
@@ -33,7 +35,19 @@
 
 
 			<div class = "panel" id = "photos"> 
-				poop 
+				<div id = "load-photos">
+					ding
+				</div>
+
+				<form id="upload-form" >
+					<div id = "submit-photos">
+						<button id="submit-button" onclick="activateSubmit()"> 
+							<input id="photo-input" type="file" name="file" hidden>	
+						</button>	
+					</div>
+				</form>
+
+
 			</div> 
 
 			<div class = "panel" id = "schedule"> 
@@ -61,14 +75,41 @@
 </div>
 
 <script>
-document.getElementById("button-edit-toggle").addEventListener("click", myFunction);
+document.getElementById("button-edit-toggle").addEventListener("click", toggle);
+
+const photoForm = document.getElementById('upload-form');
 
 
+// when submit action gets triggered by next event listener, send data to routing
+photoForm.addEventListener('submit', function(event) {
+	event.preventDefault(); 
 
-function myFunction() {
+	const formData = new FormData(photoForm);
+
+	fetch('/photo-upload', {
+		method: 'POST',
+		body: formData,
+	}).then( function (response) {
+		console.log(response);
+	});
+
+});
+
+// as soon as photo is uploaded, submit action is triggered
+photoForm.addEventListener("change", function() {
+	document.getElementById("upload-form").submit();
+});
+
+
+// clicking the button will click the input tag
+function activateSubmit() {
+	document.getElementById("photo-input").click();
+}
+
+
+function toggle() {
 
 	// replace bio with the input element
-
 	let bio = document.getElementById("p-bio");
 	let bodyText = bio.textContent; 
 	var input = document.createElement("input");
@@ -105,6 +146,9 @@ function myFunction() {
 	console.log("hello 2")
 
 }
+
+
+
 
 document.getElementById("button-cancel").addEventListener("click", myFunction2);
 
