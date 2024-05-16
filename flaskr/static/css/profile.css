@@ -62,12 +62,12 @@
 }
 
 #load-photos {
-	flex-grow: 8;
+	flex: 1;
 	background-color: #1dbf48;
 }
 
 #submit-photos {
-	flex-grow: 2;
+	flex: 1;
 	background-color: white;
 	display: flex;
 	justify-content: center;
@@ -81,10 +81,53 @@
 	width: 7em;
 }
 
+#reviews { 
+	display:none; 
+	height: 100%; 
+}
+
+#reviews-submit{ 
+	flex-basis: 50%;
+	background-color: white;
+	display: flex;
+	flex-direction : column;
+}
+
+#reviews-star {
+	background-color: white;
+	flex:1;
+	align-content: center;
+}
+
+#reviews-box {
+	display: flex;
+	padding: 2em; 
+	background-color: black;
+	align-content: center;
+	justify-content: center;
+	flex:1; 
+}
+
+#reviews-load {
+	flex-basis: 50%;
+	background-color: #1dbf48;
+}
+
+#reviews-input {
+	width: 80%;
+	height: 100%;
+	text-align: left; 
+	align-self: flex-start; 
+	line-height: 100%;
+	overflow-y: auto;
+ 	resize: none;  
+}
+
+.car {
+	width: 64px; /* Adjust the width as needed */
+}
+
 #schedule {
 	display:none;
 }
 
-#reviews { 
-	display:none; 
-}
