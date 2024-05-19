@@ -5,7 +5,7 @@ from flask import current_app
 import re
 from flask_mysqldb import MySQL
 import mysql.connector
-from flaskr.db import( exec_insert,exec_select,getMessages, pushMessage)
+from flaskr.db import( exec_insert,exec_select,getMessages, pushMessage, pushReview)
 from datetime import datetime 
 import json
 
@@ -197,6 +197,8 @@ def viewProfile(user_id):
             
     }
 
+    session.pop('viewing_profile', default=None)
+    session['viewing_profile'] = user_id
     return render_template("main/userProfile.html",user=_user,myProfile=_myProfile)
 
 
@@ -204,6 +206,7 @@ def viewProfile(user_id):
 # function for rendering a user profile based on the username
 @bp.route('/viewUserProfile/<_username>',methods=['POST','GET']) 
 def viewUserProfile(_username=None):
+
     username = addQuotes(_username)
     query = ("SELECT id,username from Users" +
              " WHERE username = " + username) 
@@ -213,6 +216,8 @@ def viewUserProfile(_username=None):
     print (output) 
     _id=output[0][0]
     _username=output[0][1]
+    session.pop('viewing_profile', default=None)
+    session['viewing_profile'] = _id
     return redirect(url_for('routes.viewProfile',user_id=_id))
 
 
@@ -224,6 +229,23 @@ def userSearch():
 @bp.route("/chatroom", methods=['GET'])
 def chatRoom(): 
     return render_template("main/navbar/chatRoom.html")
+
+
+@bp.route('/postReview', methods=['POST'])
+def submitReview(): 
+    body = request.form['review-body']
+    stars = request.form['num-stars']
+    posterID = session.get('current_user')
+    postedTo = session.get('viewing_profile')
+    print ("submitReview()")
+    print("Content-Type:", request.content_type) 
+    pushReview(postedTo, posterID, stars, body)
+    print(request) 
+    print (body) 
+    print (stars) 
+    print (posterID)
+    print (postedTo) 
+    return 'WORKING' 
 
 
 '''

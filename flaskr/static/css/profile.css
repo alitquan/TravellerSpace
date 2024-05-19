@@ -1,3 +1,7 @@
+.click {
+	cursor:pointer;
+}
+
 #profile-container { 
 	display: flex;
 	flex-direction: row;
@@ -74,7 +78,7 @@
 	align-items: center;
 }
 
-#submit-button {
+#photos-submit-button {
 	background: url(../images/spacePhotoAdd2.jpg);
 	background-size:cover;
 	height: 7em;
@@ -87,7 +91,7 @@
 }
 
 #reviews-submit{ 
-	flex-basis: 50%;
+	flex-basis: 60%;
 	background-color: white;
 	display: flex;
 	flex-direction : column;
@@ -95,7 +99,7 @@
 
 #reviews-star {
 	background-color: white;
-	flex:1;
+	flex:2;
 	align-content: center;
 }
 
@@ -105,11 +109,19 @@
 	background-color: black;
 	align-content: center;
 	justify-content: center;
-	flex:1; 
+	flex:2; 
+	max-height: 8em;
+}
+
+#container-reviews-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex:1;
 }
 
 #reviews-load {
-	flex-basis: 50%;
+	flex-basis: 40%;
 	background-color: #1dbf48;
 }
 
@@ -120,7 +132,7 @@
 	align-self: flex-start; 
 	line-height: 100%;
 	overflow-y: auto;
- 	resize: none;  
+ 	resize:none;  
 }
 
 .car {

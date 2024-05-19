@@ -128,15 +128,15 @@ def init_mongo_db():
     col = mdb.test
     col.insert_one({"id":1,"pass":1})
 
-def insertMongoDB(col, query):
-    mdb = get_mongo_db()
-    col = mdb.query
-    col.insert_one(query)
-
 
 def getMessagesCollection():
     mdb = get_mongo_db()
     col = mdb.chatroom
+    return col
+
+def getReviewsCollection():
+    mdb = get_mongo_db()
+    col = mdv.reviews
     return col
 
 
@@ -169,13 +169,28 @@ def getMessages():
 
 
 def pushMessage(user_id, body):
-    current_time = datetime.now(); 
+    current_time = datetime.now() 
     message = { "timestamp": current_time, "userID": user_id, "body": body}
     print("getting messages")
     mdb = get_mongo_db()
     col = mdb.chatroom
-    pushed = col.insert_one(message);
+    pushed = col.insert_one(message)
     print (pushed)
+
+
+'''
+reviews have following format: 
+    _userID = {postedTo} - {posterID} 
+'''
+def pushReview (postedTo, posterID, stars, body):
+    current_time = datetime.now()
+    id = str(postedTo) + '-' + str(posterID)
+    review = { "_id": id, "posted_to": int(postedTo), "posted_by": posterID, "submissionDate": current_time, "stars": stars, "body": body }
+    mdb = get_mongo_db()
+    col = mdb.reviews
+    pushed = col.insert_one(review)
+    print(pushed) 
+
 
 
 def testThread():

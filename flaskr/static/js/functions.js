@@ -216,7 +216,7 @@ function submitChat() {
 	    body: JSON.stringify({
 	      "msg":msg,
 	    })
-	  })
+	  });
 	bar.value=""; 
 } 
 

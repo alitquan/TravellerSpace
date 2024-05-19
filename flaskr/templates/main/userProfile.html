@@ -44,9 +44,9 @@
 
 				
 				<div id = "submit-photos">
-					<form id="upload-form" >
-						<button id="submit-button" onclick="activateSubmit()"> 
-							<input id="photo-input" type="file" name="file" hidden>	
+					<form id="photos-form" >
+						<button id="photos-submit-button" onclick="activatePhotosInput()"> 
+							<input id="photos-input" type="file" name="file" hidden>	
 						</button>	
 					</form>
 				</div>
@@ -63,15 +63,23 @@
 
 				<div id = "reviews-submit"> 
 					<div id ="fa-2x reviews-star"> 
-						<span class="fa fa-star fa-3x checked"></span>
-						<span class="fa fa-star fa-3x checked"></span>
-						<span class="fa fa-star fa-3x checked"></span>
-						<span class="fa fa-star fa-3x"></span>
-						<span class="fa fa-star fa-3x"></span>
+						<span id="star1" class="click fa fa-star fa-3x"></span>
+						<span id="star2" class="click fa fa-star fa-3x"></span>
+						<span id="star3" class="click fa fa-star fa-3x"></span>
+						<span id="star4" class="click fa fa-star fa-3x"></span>
+						<span id="star5" class="click fa fa-star fa-3x"></span>
+
+						<form id = "reviews-rating-form">
+							<input id="reviews-rating" type="number" name="num-stars" min="1" max="5" hidden> 
+						</form>
 					</div> 
 
 					<div id ="reviews-box"> 
-						<textarea id="reviews-input">
+						<textarea id="reviews-input"></textarea>
+					</div> 
+
+					<div id ="container-reviews-button">
+						<button id= "reviews-button" > Submit Review </button> 
 					</div> 
 				</div> 
 
@@ -100,8 +108,92 @@
 <script>
 document.getElementById("button-edit-toggle").addEventListener("click", toggle);
 
-const photoForm = document.getElementById('upload-form');
+var stars = document.querySelectorAll('.fa-star');
+console.log(stars);
 
+
+var stars = document.querySelectorAll('.fa-star'); 
+const reviewRating = document.getElementById("reviews-rating");
+
+function setRating(i) { 
+	console.log("rating: " + i);
+	reviewRating.value = i; 
+} 
+
+
+function clickStar() {
+	stars.forEach ( function(star) {
+		star.style.color='black';
+	});
+	console.log('click');
+	this.style.color = 'yellow';
+	if (this.previousElementSibling == null) { 
+		return setRating(1); 
+	}
+	return setRating(1 + clickStarHelper(this.previousElementSibling));
+}
+
+
+function clickStarHelper(node) {
+	node.style.color = 'yellow';
+	var leftSib = node.previousElementSibling;
+	if (leftSib == null) {
+		return 1;
+	}
+	return 1 + clickStarHelper(node.previousElementSibling);
+}
+
+
+stars.forEach( function(star) {
+	star.addEventListener ('click', clickStar); 
+});
+
+
+function countStars () {
+	let rating = 0;
+	for (let i = 0; i < stars.length; i++) {
+		const star = stars[i];
+		if (star.style.color == 'yellow') {
+			rating++;
+		}
+	}
+	console.log(rating);
+	return rating;
+}
+
+
+const reviewButton = document.getElementById("reviews-button");
+const reviewForm = document.getElementById("reviews-rating-form");
+
+
+reviewButton.addEventListener('click', function() {
+
+	const formData = new FormData(reviewForm);
+	const reviewText = document.getElementById("reviews-input").value;
+
+	formData.append('review-body',reviewText);
+	console.log(formData);
+	console.log(reviewText);
+	console.log("reviewButton eventlistener");
+
+
+	fetch('/postReview', {
+		method: 'POST',
+		body: formData
+	})
+	.then (response =>  {
+		if (!response.ok) {
+			throw new Error ('Network response not OK');
+		}
+	})
+	.then (data => { console.log(data);})
+	.catch (error => console.error('There was a problem with fetch', error));
+});
+
+	
+
+
+const photoForm = document.getElementById("photos-form");
 
 // when submit action gets triggered by next event listener, send data to routing
 photoForm.addEventListener('submit', function(event) {
@@ -118,16 +210,26 @@ photoForm.addEventListener('submit', function(event) {
 
 });
 
+
+const photosInput = document.getElementById("photos-input");
+const photosButton = document.getElementById("photos-submit-button");
+
+// clicking the button will click the input tag
+function activatePhotosInput() {
+	document.getElementById("photos-input").click();
+	console.log("activatePhotosInput()");
+}
+
+
+
+
+
 // as soon as photo is uploaded, submit action is triggered
-photoForm.addEventListener("change", function() {
-	document.getElementById("upload-form").submit();
+photosInput.addEventListener("change", function() {
+	photoForm.submit();
 });
 
 
-// clicking the button will click the input tag
-function activateSubmit() {
-	document.getElementById("photo-input").click();
-}
 
 
 // for saving changes made to profile
