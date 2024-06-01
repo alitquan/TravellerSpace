@@ -75,7 +75,8 @@
 					</div> 
 
 					<div id ="reviews-box"> 
-						<textarea id="reviews-input"></textarea>
+						<textarea placeholder="review title" id="reviews-title"></textarea>
+						<textarea placeholder="review body" id="reviews-input"></textarea>
 					</div> 
 
 					<div id ="container-reviews-button">
@@ -100,15 +101,6 @@
 							</div>
 						</div>
 
-						<div class = "review-indiv-body"> 
-							<div class = "reviews-indiv-author">
-								by: John Doe
-							</div>
-
-							<div class = "reviews-indiv-details">
-								Hello Golly
-							</div>	
-						</div>
 
 					</div>
 
@@ -205,8 +197,10 @@ reviewButton.addEventListener('click', function() {
 
 	const formData = new FormData(reviewForm);
 	const reviewText = document.getElementById("reviews-input").value;
+	const reviewTitle = document.getElementById("reviews-title").value;
 
 	formData.append('review-body',reviewText);
+	formData.append('review-title',reviewTitle);
 	console.log(formData);
 	console.log(reviewText);
 	console.log("reviewButton eventlistener");

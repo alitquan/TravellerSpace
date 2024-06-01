@@ -218,7 +218,7 @@ def viewUserProfile(_username=None):
              " WHERE username = " + username) 
     output = exec_select(query) 
     print ("Function ---- viewUserProfile")
-    print("Successfuly printed userinfo for " + _username) 
+    print("Successfuly printed userinfo for: ", _username) 
     print (output) 
     _id=output[0][0]
     _username=output[0][1]
@@ -240,12 +240,13 @@ def chatRoom():
 @bp.route('/postReview', methods=['POST'])
 def submitReview(): 
     body = request.form['review-body']
+    title = request.form['review-title']
     stars = request.form['num-stars']
     posterID = session.get('current_user')
     postedTo = session.get('viewing_profile')
     print ("submitReview()")
     print("Content-Type:", request.content_type) 
-    pushReview(postedTo, posterID, stars, body)
+    pushReview(postedTo, posterID, stars, title, body)
     print(request) 
     print (body) 
     print (stars) 

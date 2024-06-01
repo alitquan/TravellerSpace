@@ -109,6 +109,7 @@
 	background-color: black;
 	align-content: center;
 	justify-content: center;
+	flex-direction: column;
 	flex:2; 
 	max-height: 8em;
 }
@@ -125,6 +126,16 @@
 	background-color: #1dbf48;
 }
 
+#reviews-title {
+	width :80%;
+	height:30%;
+	text-align: left; 
+	align-self: flex-start; 
+	line-height: 100%;
+	resize: none;
+	margin-bottom: 1em;
+}
+
 #reviews-input {
 	width: 80%;
 	height: 100%;
@@ -137,6 +148,10 @@
 
 .reviews-li {
 	list-style-type: none;
+}
+
+.pulled-stars {
+	color: yellow;
 }
 
 .reviews-indiv {
@@ -164,12 +179,22 @@
 	background-color: yellow;
 }
 
-.reviews-indiv-author {
+.reviews-indiv-generic {
 	font-weight:bold;
 	font-size:12px;
 	border-style: solid;
 	border-width: 1px;
 }
+
+.reviews-indiv-timestamp {
+	font-weight:bold;
+	font-size:10px;
+	border-style: solid;
+	border-width: 1px;
+	border-top: none; 
+}
+
+
 
 
 

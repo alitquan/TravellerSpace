@@ -267,6 +267,7 @@ async function populateMessages(mJSON) {
 }
 
 
+
 async function populateReviews(review) {
 	
 	console.log('populateReviews()');
@@ -276,7 +277,10 @@ async function populateReviews(review) {
 	let posted_by = await idToName(review.posted_by);
 	let _body = review.body;
 	let rating = review.stars;
-	console.log(posted_to,posted_by,_body,rating);
+	let title = review.title;
+	let submittedOn = review.submissionDate;
+	let submitTimeStamp = new Date(submittedOn).toISOString().split('T')[0];
+	console.log(posted_to,posted_by,_body,rating,title, submitTimeStamp);
 
 
 	var ul = document.getElementById('reviews-list');
@@ -293,11 +297,25 @@ async function populateReviews(review) {
 
 	var stars = document.createElement("div");
 	stars.classList.add("reviews-indiv-stars");
-	stars.textContent = rating;
+
+
+	// adding the star shape
+	var starsContainer = document.createElement("div");
+	starsContainer.classList.add("reviews-star");
+	for (var i = 0; i < rating; i++) {
+		console.log ("star: ", i);
+		let star = document.createElement("span");
+
+		star.classList.add("fa");
+		star.classList.add("fa-star");
+		star.classList.add("pulled-stars");
+		starsContainer.appendChild(star);
+	}
+	stars.appendChild (starsContainer);
 
 	var headline = document.createElement("div");
 	headline.classList.add("reviews-indiv-headline");
-	headline.textContent = "Need to implement header in submission form"
+	headline.textContent = title; 
 
 
 	header.appendChild (stars);
@@ -308,14 +326,20 @@ async function populateReviews(review) {
 	body.classList.add("reviews-indiv-body");
 
 	var author = document.createElement("div");
-	author.classList.add("reviews-indiv-author");
+	author.classList.add("reviews-indiv-generic");
 	author.textContent = posted_by; 
+
+	var postedTimestamp = document.createElement("div");
+
+	postedTimestamp.classList.add("reviews-indiv-timestamp");
+	postedTimestamp.textContent = submitTimeStamp;
 
 	var details = document.createElement("div");
 	details.classList.add("reviews-indiv-details");
 	details.textContent = _body; 
 
 	body.appendChild(author);
+	body.appendChild(postedTimestamp);
 	body.appendChild(details);
 	
 	indiv.appendChild (header); 

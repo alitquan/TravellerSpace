@@ -200,10 +200,10 @@ def pushMessage(user_id, body):
 reviews have following format: 
     _userID = {postedTo} - {posterID} 
 '''
-def pushReview (postedTo, posterID, stars, body):
+def pushReview (postedTo, posterID, stars, title, body):
     current_time = datetime.now()
     id = str(postedTo) + '-' + str(posterID)
-    review = { "_id": id, "posted_to": int(postedTo), "posted_by": posterID, "submissionDate": current_time, "stars": stars, "body": body }
+    review = { "_id": id, "posted_to": int(postedTo), "posted_by": posterID, "submissionDate": current_time, "stars": stars, "title":title, "body": body}
     mdb = get_mongo_db()
     col = mdb.reviews
     pushed = col.insert_one(review)
