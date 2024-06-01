@@ -5,7 +5,7 @@ from flask import current_app
 import re
 from flask_mysqldb import MySQL
 import mysql.connector
-from flaskr.db import( exec_insert,exec_select,getMessages, pushMessage, pushReview)
+from flaskr.db import( exec_insert,exec_select,getMessages,getReviews,pushMessage, pushReview)
 from datetime import datetime 
 import json
 
@@ -202,6 +202,12 @@ def viewProfile(user_id):
     return render_template("main/userProfile.html",user=_user,myProfile=_myProfile)
 
 
+@bp.route("/getViewedProfile", methods =['GET'])
+def getViewedProfile():
+    viewedProfile = str(session.get("viewing_profile"))
+    print ("getViewedProfile() --> ", viewedProfile)
+    return viewedProfile 
+
 
 # function for rendering a user profile based on the username
 @bp.route('/viewUserProfile/<_username>',methods=['POST','GET']) 
@@ -246,6 +252,7 @@ def submitReview():
     print (posterID)
     print (postedTo) 
     return 'WORKING' 
+
 
 
 '''
@@ -358,6 +365,15 @@ def getChatroomMessages():
         print()
         return query
     return '100'
+
+
+@bp.route("/getReviews", methods = ['GET'])
+def loadReviews():
+    _id = request.args.get("userID")
+    print ("loadReviews() arg: ", _id) 
+    query = getReviews(_id) 
+    print(query)
+    return query
 
 
 @bp.route("/submitChat", methods = ["POST"])

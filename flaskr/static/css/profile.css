@@ -135,7 +135,47 @@
  	resize:none;  
 }
 
+.reviews-li {
+	list-style-type: none;
+}
+
+.reviews-indiv {
+	display:flex;
+	flex-direction: column;
+	border-style: solid;
+	border-width: 1em;
+	min-height: 5em;
+	max-height:10em;
+}
+
+.reviews-indiv-header {
+	display:flex;
+	flex-direction:row;
+	width: 100%;
+}
+
+.reviews-indiv-stars {
+	flex: 1;
+	background-color: red;
+}
+
+.reviews-indiv-headline {
+	flex: 4;
+	background-color: yellow;
+}
+
+.reviews-indiv-author {
+	font-weight:bold;
+	font-size:12px;
+	border-style: solid;
+	border-width: 1px;
+}
+
+
+
+
 .car {
+
 	width: 64px; /* Adjust the width as needed */
 }
 

@@ -85,6 +85,33 @@
 
 				<div id = "reviews-load">
 
+					<ul id = "reviews-list">
+						
+					</ul>
+
+					<div class = "reviews-indiv">
+						<div class = "reviews-indiv-header"> 
+							<div class = "reviews-indiv-stars">
+								doo
+							</div>
+
+							<div class = "reviews-indiv-headline">
+								wop
+							</div>
+						</div>
+
+						<div class = "review-indiv-body"> 
+							<div class = "reviews-indiv-author">
+								by: John Doe
+							</div>
+
+							<div class = "reviews-indiv-details">
+								Hello Golly
+							</div>	
+						</div>
+
+					</div>
+
 				</div>
 			
 			</div> 
@@ -106,7 +133,15 @@
 </div>
 
 <script>
-document.getElementById("button-edit-toggle").addEventListener("click", toggle);
+
+try {
+	document.getElementById("button-edit-toggle").addEventListener("click", toggle);
+}
+catch (error) {
+	if (error instanceof TypeError) {
+		console.error("No edit button -- viewing other user profile");
+	}
+}
 
 var stars = document.querySelectorAll('.fa-star');
 console.log(stars);
@@ -276,12 +311,63 @@ function toggle() {
 
 
 
-document.getElementById("button-cancel").addEventListener("click", myFunction2);
+try {
+	document.getElementById("button-cancel").addEventListener("click", myFunction2);
+}
+catch (error) {
+	console.error ("No cancel button; viewing other user's profile");
+}
 
 function myFunction2() {
 	console.log('myFunction2')
 }
 
+
+
+async function getReviews() {
+
+	try {
+
+		// getting ID of profile currently being viewe
+		const profileViewResponse = await fetch ('/getViewedProfile'); 
+		const profileViewID = await profileViewResponse.text();
+		console.log("getReviews") 
+		console.log(profileViewID);
+		console.log("getReviews - END"); 
+
+		// passing ID to the DB route
+		const reviewsResponse = await fetch(`/getReviews?userID=${profileViewID}`)
+		const reviewsText = await reviewsResponse.text();
+
+		console.log(reviewsResponse);
+		console.log(reviewsText);
+		const review = await parseReview(reviewsText);
+
+	}
+
+	catch (error) {
+		console.error ('Errors: ', error);
+	}
+
+}
+
+
+async function parseReview(_reviews) {
+	let reviews = JSON.parse(_reviews);
+	console.log();
+	console.log("parseReview()")
+	console.log("Reviews: ", reviews);
+	console.log();
+	const _id = reviews._id;
+	console.log (_id);
+	console.log();
+	console.log('Printing Reviews: ');
+	reviews.forEach( review => populateReviews(review));
+	console.log('Reviews done printing');
+} 
+
+
+document.addEventListener('DOMContentLoaded',getReviews);
 
 
 </script> 

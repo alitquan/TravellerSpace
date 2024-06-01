@@ -168,40 +168,50 @@ function updateProfile() {
 
 // pos 0 -- about. it has the edit bar
 function togglePanel(target) {
-	console.log("togglePanel()");
-	let panels = document.querySelectorAll(".panel");
-	let toggle = document.querySelectorAll(".panel-toggle");
-	
+	try { 
 
-	// store about panel height
-	let aboutHeight = document.getElementById('container-profile').offsetHeight;
-	console.log ("about height: " + aboutHeight); 
+		console.log("togglePanel()");
+		let panels = document.querySelectorAll(".panel");
+		let toggle = document.querySelectorAll(".panel-toggle");
+		
 
-	// store navigator color
-	let navigatorColor = document.getElementById('navigator').style.color;
-	panels.forEach(function(panel, index) {
-		panel.style.minHeight = aboutHeight + 'px';
-		if (target == index) {
-			panel.style.display = 'flex';
-			console.log ("new min height: " + panel.style.minHeight);
-			toggle[index].style.backgroundColor = 'blue'
+		// store about panel height
+		let aboutHeight = document.getElementById('container-profile').offsetHeight;
+		console.log ("about height: " + aboutHeight); 
+
+		// store navigator color
+		let navigatorColor = document.getElementById('navigator').style.color;
+		panels.forEach(function(panel, index) {
+			panel.style.minHeight = aboutHeight + 'px';
+			if (target == index) {
+				panel.style.display = 'flex';
+				console.log ("new min height: " + panel.style.minHeight);
+				toggle[index].style.backgroundColor = 'blue'
+			}
+			else {
+				toggle[index].style.backgroundColor = navigatorColor
+				panel.style.display = 'none';
+			}
+		});
+
+		let editBar = document.getElementById('edit-bar');
+
+		// (un)hide edit bar
+		if (target != 0) {
+			editBar.style.display = 'none';
 		}
 		else {
-			toggle[index].style.backgroundColor = navigatorColor
-			panel.style.display = 'none';
+			editBar.style.display = 'flex';
 		}
-	});
 
-	let editBar = document.getElementById('edit-bar');
 
-	// (un)hide edit bar
-	if (target != 0) {
-		editBar.style.display = 'none';
-	}
-	else {
-		editBar.style.display = 'flex';
 	}
 
+	catch (error) {
+		if (error instanceof TypeError) { 
+			console.error(error);
+		}
+	}
 }
 
 
@@ -254,4 +264,62 @@ async function populateMessages(mJSON) {
         li.appendChild(para);
         ul.appendChild(li);
     }
+}
+
+
+async function populateReviews(review) {
+	
+	console.log('populateReviews()');
+	console.log(review);
+
+	let posted_to = await idToName(review.posted_to);
+	let posted_by = await idToName(review.posted_by);
+	let _body = review.body;
+	let rating = review.stars;
+	console.log(posted_to,posted_by,_body,rating);
+
+
+	var ul = document.getElementById('reviews-list');
+	var li = document.createElement("li"); 
+	li.classList.add("reviews-li");
+
+	var indiv = document.createElement("div");
+	indiv.classList.add("reviews-indiv");
+
+	// reviews-indiv-header 
+	var header = document.createElement("div");
+	header.classList.add("reviews-indiv-header");
+
+
+	var stars = document.createElement("div");
+	stars.classList.add("reviews-indiv-stars");
+	stars.textContent = rating;
+
+	var headline = document.createElement("div");
+	headline.classList.add("reviews-indiv-headline");
+	headline.textContent = "Need to implement header in submission form"
+
+
+	header.appendChild (stars);
+	header.appendChild (headline); 
+
+	// reviews-indiv-body
+	var body = document.createElement("div");
+	body.classList.add("reviews-indiv-body");
+
+	var author = document.createElement("div");
+	author.classList.add("reviews-indiv-author");
+	author.textContent = posted_by; 
+
+	var details = document.createElement("div");
+	details.classList.add("reviews-indiv-details");
+	details.textContent = _body; 
+
+	body.appendChild(author);
+	body.appendChild(details);
+	
+	indiv.appendChild (header); 
+	indiv.appendChild (body);
+	li.appendChild (indiv);
+	ul.appendChild (li);
 }

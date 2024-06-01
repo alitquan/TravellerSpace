@@ -141,6 +141,7 @@ def getReviewsCollection():
 
 
 def getMessages(): 
+
     mdb = get_mongo_db()
     col = mdb.chatroom
     # print(col)
@@ -167,6 +168,23 @@ def getMessages():
     print() 
     return output
 
+def getReviews(user_id):
+    mdb = get_mongo_db()
+    col = mdb.reviews
+    docList = list()
+    query = {"posted_to":user_id} 
+    print(query)
+    for x in col.find({'posted_to':int(user_id)}).sort("submissiondate",-1):
+        docList.append(x)
+        print ("getReview() -- found record: ", x) 
+
+    for item in docList:
+        item["_id"] = str(item["_id"])
+        item["submissionDate"] = item["submissionDate"].isoformat()
+
+    output = json.dumps(docList)
+    print(output)
+    return output
 
 def pushMessage(user_id, body):
     current_time = datetime.now() 
