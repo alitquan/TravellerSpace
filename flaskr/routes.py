@@ -5,7 +5,7 @@ from flask import current_app
 import re
 from flask_mysqldb import MySQL
 import mysql.connector
-from flaskr.db import( exec_insert,exec_select,getMessages,getReviews,pushMessage, pushReview)
+from flaskr.db import( exec_insert,exec_select,getMessages,getReviews,pushMessage, pushReview, pushFeedPost, getFeed)
 from datetime import datetime 
 import json
 
@@ -232,10 +232,13 @@ def userSearch():
    return render_template("main/navbar/searchBar.html")
 
 
-@bp.route("/chatroom", methods=['GET'])
+@bp.route('/chatroom', methods=['GET'])
 def chatRoom(): 
     return render_template("main/navbar/chatRoom.html")
 
+@bp.route('/feed', methods=['GET'])
+def feed():
+    return render_template("main/navbar/feed.html")
 
 @bp.route('/postReview', methods=['POST'])
 def submitReview(): 
@@ -253,6 +256,14 @@ def submitReview():
     print (posterID)
     print (postedTo) 
     return 'WORKING' 
+
+
+@bp.route('/postFeed', methods=['POST'])
+def submitFeedPost():
+    body = request.form['feed-post-text']
+    posterID = session.get('current_user')
+    pushFeedPost(posterID,body) 
+    return 'WORKING'
 
 
 
@@ -374,6 +385,12 @@ def loadReviews():
     print ("loadReviews() arg: ", _id) 
     query = getReviews(_id) 
     print(query)
+    return query
+
+
+@bp.route("/getFeed", methods = ['GET'])
+def loadFeed(): 
+    query =  getFeed() 
     return query
 
 

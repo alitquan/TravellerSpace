@@ -186,6 +186,24 @@ def getReviews(user_id):
     print(output)
     return output
 
+def getFeed():
+    mdb = get_mongo_db()
+    col = mdb.feed
+
+    docList = list()
+    for x in col.find().sort("submissionDate",-1):
+        docList.append(x)
+        print ("getFeed() -- found record: ",x)
+
+    for item in docList:
+        item["_id"] = str(item["_id"])
+        item["submissionDate"] = item["submissionDate"].isoformat()
+
+    output = json.dumps(docList)
+
+    return output
+
+
 def pushMessage(user_id, body):
     current_time = datetime.now() 
     message = { "timestamp": current_time, "userID": user_id, "body": body}
@@ -209,6 +227,17 @@ def pushReview (postedTo, posterID, stars, title, body):
     pushed = col.insert_one(review)
     print(pushed) 
 
+
+def pushFeedPost(user_id, body):
+    mdb = get_mongo_db()
+    col = mdb.feed
+    
+    count = col.count_documents({"posted_by":user_id})
+    id = str(user_id) + "-" + str(count)
+    current_time = datetime.now()
+    post = { "_id": id, "posted_by": user_id, "body": body, "submissionDate": current_time}
+    pushed = col.insert_one(post)
+    print(pushed) 
 
 
 def testThread():

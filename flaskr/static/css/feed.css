@@ -1,0 +1,97 @@
+#feed-container {
+	display:flex;
+	flex-direction: column;
+	min-height: 20em;
+	height: 40em;
+}
+
+
+#feed-submit {
+	display:flex;
+	flex:1;
+	background-color: red;
+	justify-content: center;
+}
+
+#feed-posts {
+	display:flex;
+	flex: 5;
+	background-color: blue;
+}
+
+#feed-submit-container {
+	display: flex;
+	flex-direction: row;
+	width: 85%;
+	height: 50%;
+	padding: 1em;
+}
+
+#feed-submit-textarea {
+	background-color: pink;
+	flex: 9;
+}
+
+#feed-submit-photo {
+	background-color: purple;
+	flex: 1;
+	align-content: center;
+} 
+
+#feed-submit-video {
+	background-color: orange;
+	flex: 1;
+	align-content: center;
+}
+
+#feed-button-container {
+	background-color: green;
+	flex: 1;
+	align-content: center;
+	cursor: pointer;
+}
+
+#feed-posts {
+	display: flex; 
+	justify-content: center; 
+	width: 100%;
+}
+
+#feed-posts-container {
+	display:flex; 
+	width: 100%; 
+	justify-content: center;
+}
+
+#feed-posts-list {
+	display:flex; 
+	background-color: white;
+	width: 80%;
+	min-height: 20em;
+}
+
+.feed-posts-li {
+	list-style: none;
+}
+
+.feed-post {
+	display:flex; 
+} 
+
+.feed-post-header {
+	display: flex;
+	flex-direction: row;
+}
+
+.header-photo {
+	flex: 1;
+	background-color: blue;
+}
+
+.header-username {
+	flex: 1; 
+	background-color:red;
+}
+
+
+

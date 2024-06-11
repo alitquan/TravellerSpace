@@ -1,0 +1,108 @@
+{% extends 'main/loggedIn.html' %} 
+
+{% block head %} 
+<link rel="stylesheet" href="{{url_for('static',filename='css/feed.css')}}"> 
+<script src ="../../static/js/functions.js"> </script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script> -->
+
+{% endblock %}
+
+
+
+{% block content %}
+<div id = "feed-container"> 
+	<div id = "feed-submit">
+		<div id = "feed-submit-container">
+
+			<form id = "feed-form"> 
+			</form>
+
+			<textarea id="feed-submit-textarea" placeholder="What's on your mind?">
+			</textarea>
+
+			<div id ="feed-submit-photo"> photo</div>
+			<div id ="feed-submit-video">video</div>
+			<div id ="feed-button-container"> <button id="feed-submit-button"> Submit </button> </div>
+		</div> 
+	</div>
+
+	<div id = "feed-posts"> 
+		<div id = "feed-posts-container"> 
+
+			<ul id = "feed-posts-list">
+				<li class = "feed-posts-li">
+					<div class = "feed-post">
+
+						<div class = "feed-post-header">
+							<div class= "header-photo"> hi </div> 
+							<div class= "header-username"> no </div> 
+						</div> 
+
+						<div class = "feed-post-body"> 
+							hello
+						</div>
+
+						<div class = "feed-post-footer">
+
+						</div> 
+
+					</div>
+				</li>
+			</ul>
+
+		</div> 
+	</div>
+</div> 
+
+
+<script>
+
+	const feedForm = document.getElementById("feed-form");
+
+	document.getElementById('feed-submit-button').addEventListener('click', function () { 
+		console.log ("button pressed");
+		var submissionText = document.getElementById("feed-submit-textarea").value;
+		console.log(submissionText);
+
+		const formData = new FormData(feedForm);
+		formData.append('feed-post-text',submissionText);
+		console.log (formData);
+
+		fetch('/postFeed', {
+		method: 'POST',
+		body: formData
+		})
+		.then (response =>  {
+			if (!response.ok) {
+				throw new Error ('Network response not OK');
+			}
+		})
+		.then (data => { console.log(data);})
+		.catch (error => console.error('There was a problem with fetch', error));
+	});
+
+
+async function getFeed() {
+
+	try {
+		const feed = await fetch ('/getFeed')
+		const feedText = await feed.text() 
+
+		console.log("js getFeed()")
+		console.log (feed)
+		console.log (feedText)
+	}
+
+	catch (error) {
+		console.error ('Errors: ', error);
+	}
+
+}
+
+
+document.addEventListener('DOMContentLoaded',getFeed);
+
+</script>
+{% endblock %} 
+
