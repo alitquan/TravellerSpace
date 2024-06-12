@@ -65,6 +65,7 @@
 
 #feed-posts-list {
 	display:flex; 
+	flex-direction: column;
 	background-color: white;
 	width: 80%;
 	min-height: 20em;
@@ -72,26 +73,82 @@
 
 .feed-posts-li {
 	list-style: none;
+	width: 100%;
 }
 
 .feed-post {
 	display:flex; 
+	flex-direction: column;
+	width: 97%;
+	min-height: 15em;
+	background-color: #512c2d;
+	color: #b2b79a;
+	margin-top: 1em;
 } 
 
 .feed-post-header {
 	display: flex;
 	flex-direction: row;
+	background-color: #857b68;
+	flex: 1;
+}
+
+.feed-post-header, .feed-post-timestamp {
+	width: 35%;
+}
+
+.feed-post, .header-photo, .header-username, .feed-post-button {
+	border-style: solid;
+	border-width: 2px;
+	border-color: #344139;
+}
+
+.feed-post {
+	border-radius: 0.5em;
+}
+
+.header-photo, .header-username {
+	color: #344139;
 }
 
 .header-photo {
-	flex: 1;
-	background-color: blue;
+	flex: 2;
 }
 
 .header-username {
-	flex: 1; 
-	background-color:red;
+	flex: 3; 
+	border-left: none;
 }
 
+.feed-post-timestamp {
+	flex: 0.5;
+	background-color:#344139;
+}
 
+.feed-post-body {
+	flex: 2;
+}
 
+.feed-post-footer { 
+	flex: 1;
+	background-color: #605854;
+}
+
+.feed-post-buttons-container{
+	display: flex;
+	flex-direction: row;
+	padding-left: 1em;
+	margin-top: 0.5em;
+	align-items: center; 
+	gap: 1em;
+}
+
+.feed-post-button{
+	padding: 0.2em;
+	border-radius: 0.5em;
+	border-color: #b2b79a;
+}
+
+.feed-post-down-votes { 
+	margin-right: 0.5em;
+} 

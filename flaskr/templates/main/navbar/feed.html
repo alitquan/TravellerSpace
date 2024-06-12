@@ -6,6 +6,7 @@
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script> -->
 
+<link rel="stylesheet" href="../../static/css/font-awesome-4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 
@@ -35,16 +36,30 @@
 					<div class = "feed-post">
 
 						<div class = "feed-post-header">
-							<div class= "header-photo"> hi </div> 
-							<div class= "header-username"> no </div> 
+							<div class= "header-photo"> PHOTO</div> 
+							<div class= "header-username"> USERNAME </div> 
+						</div> 
+						
+						<div class = "feed-post-timestamp">
+							TIMESTAMP	
 						</div> 
 
 						<div class = "feed-post-body"> 
-							hello
+							BODY
 						</div>
 
 						<div class = "feed-post-footer">
+							FOOTER
+							<div class = "feed-post-buttons-container">
+								<i class="fa fa-thumbs-up feed-post-button" style="font-size:1.5em"></i>
 
+								<i class="feed-post-up-votes"> 100 </i>
+								<i class="fa fa-thumbs-down feed-post-button" style="font-size:1.5em"></i>
+								<i class="feed-post-down-votes"> 100 </i>
+
+								<i class="fa fa-comment feed-post-button"  style="font-size:1.5em" aria-hidden="true"></i>
+
+							</div>
 						</div> 
 
 					</div>
@@ -92,6 +107,8 @@ async function getFeed() {
 		console.log("js getFeed()")
 		console.log (feed)
 		console.log (feedText)
+		
+		const post = await parsePost(feedText); 
 	}
 
 	catch (error) {
@@ -100,9 +117,83 @@ async function getFeed() {
 
 }
 
+async function parsePost(text) {
+	let posts = JSON.parse(text);
+	console.log ('parsePost()');
+
+	let ul = document.getElementById("feed-posts-list");
+
+	for (const post of posts) {
+		console.log('hallelujah');
+		console.log(ul);
+
+		var listItem = document.createElement("li");
+		listItem.classList.add("feed-posts-li");
+
+		var postContainer = document.createElement("div");
+		postContainer.classList.add("feed-post");
+
+		
+		//defining header
+		var postHeader = document.createElement("div");
+		postHeader.classList.add("feed-post-header");
+		var headerPhoto = document.createElement("div");
+		headerPhoto.classList.add("header-photo");
+		var headerUsername = document.createElement("div");
+		headerUsername.classList.add("header-username");
+
+		
+		postHeader.appendChild(headerPhoto);
+		postHeader.appendChild(headerUsername);
+
+		postContainer.appendChild(postHeader);
+
+		// defining time stamp 
+		var timestamp = document.createElement("div"); 
+		timestamp.classList.add("feed-post-timestamp");
+
+		postContainer.appendChild(timestamp);
+
+		// defining body
+		var postBody = document.createElement("div");
+		postBody.classList.add("feed-post-body");
+
+		postContainer.appendChild(postBody);
+
+		
+		// defining footer 
+		var postFooter = document.createElement("div");
+		postFooter.classList.add("feed-post-footer");
+
+		postContainer.appendChild(postFooter);
+
+
+
+		var italic = document.createElement("i");
+		italic.innerText = "hello";
+
+
+		listItem.appendChild(italic);
+
+		listItem.appendChild(postContainer);
+		ul.appendChild(listItem);
+		
+		
+	}
+
+}
+	
+
 
 document.addEventListener('DOMContentLoaded',getFeed);
 
 </script>
 {% endblock %} 
+
+
+
+
+
+
+
 
