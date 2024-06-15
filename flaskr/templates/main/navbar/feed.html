@@ -1,6 +1,8 @@
 {% extends 'main/loggedIn.html' %} 
 
 {% block head %} 
+
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"> 
 <link rel="stylesheet" href="{{url_for('static',filename='css/feed.css')}}"> 
 <script src ="../../static/js/functions.js"> </script>
 
@@ -11,8 +13,7 @@
 
 
 
-{% block content %}
-<div id = "feed-container"> 
+{% block content %} <div id = "feed-container"> 
 	<div id = "feed-submit">
 		<div id = "feed-submit-container">
 
@@ -52,13 +53,13 @@
 							FOOTER
 							<div class = "feed-post-buttons-container">
 								<i class="fa fa-thumbs-up feed-post-button" style="font-size:1.5em"></i>
-
-								<i class="feed-post-up-votes"> 100 </i>
+								<i class="feed-post-upvotes"> 100 </i>
 								<i class="fa fa-thumbs-down feed-post-button" style="font-size:1.5em"></i>
-								<i class="feed-post-down-votes"> 100 </i>
-
+								<i class="feed-post-downvotes"> 100 </i>
 								<i class="fa fa-comment feed-post-button"  style="font-size:1.5em" aria-hidden="true"></i>
 
+								<i class="feed-post-comment-count"> 0 </i>
+.
 							</div>
 						</div> 
 
@@ -108,7 +109,7 @@ async function getFeed() {
 		console.log (feed)
 		console.log (feedText)
 		
-		const post = await parsePost(feedText); 
+		const post = await parsePosts(feedText); 
 	}
 
 	catch (error) {
@@ -117,14 +118,34 @@ async function getFeed() {
 
 }
 
-async function parsePost(text) {
+async function parsePosts(text) {
 	let posts = JSON.parse(text);
 	console.log ('parsePost()');
+	console.log(posts);
+	console.log('parsePosts() -- end');
 
 	let ul = document.getElementById("feed-posts-list");
 
 	for (const post of posts) {
-		console.log('hallelujah');
+		console.log('\n Parse Start');
+
+		const postedBy =  await idToName(post.posted_by);
+		const body = post.body;
+
+		const latestEdit = post.editedOn;
+		const submissionDate = post.submittedOn; 
+		let submitTimestamp = new Date(submissionDate).toISOString().split('T')[0];
+		let editTimestamp = new Date(latestEdit).toISOString().split('T')[0];
+
+		const likes = post.likes;
+		const dislikes = post.dislikes;
+
+
+		// number of comments
+		const commentNum = post.comments; 
+	
+		console.log (postedBy,body,submitTimestamp,editTimestamp,likes,dislikes);
+		console.log('Parse Done \n');
 		console.log(ul);
 
 		var listItem = document.createElement("li");
@@ -141,6 +162,7 @@ async function parsePost(text) {
 		headerPhoto.classList.add("header-photo");
 		var headerUsername = document.createElement("div");
 		headerUsername.classList.add("header-username");
+		headerUsername.textContent = postedBy;
 
 		
 		postHeader.appendChild(headerPhoto);
@@ -149,14 +171,17 @@ async function parsePost(text) {
 		postContainer.appendChild(postHeader);
 
 		// defining time stamp 
-		var timestamp = document.createElement("div"); 
-		timestamp.classList.add("feed-post-timestamp");
+		var submitTS = document.createElement("div"); 
+		submitTS.classList.add("feed-post-timestamp");
+		submitTS.textContent = submitTimestamp;
+		
 
-		postContainer.appendChild(timestamp);
+		postContainer.appendChild(submitTS);
 
 		// defining body
 		var postBody = document.createElement("div");
 		postBody.classList.add("feed-post-body");
+		postBody.textContent = body;
 
 		postContainer.appendChild(postBody);
 
@@ -164,6 +189,47 @@ async function parsePost(text) {
 		// defining footer 
 		var postFooter = document.createElement("div");
 		postFooter.classList.add("feed-post-footer");
+
+		var postFooterContainer = document.createElement("div");
+		postFooterContainer.classList.add("feed-post-buttons-container");
+
+
+		var likesIcon = document.createElement("i");
+		likesIcon.classList.add("fa", "fa-thumbs-up","feed-post-button");
+		likesIcon.style.fontSize='1.5em';
+
+		var likesNum = document.createElement("i");
+		likesNum.classList.add("feed-post-upvotes");
+		likesNum.textContent = likes;
+
+		var dislikesIcon = document.createElement("i");
+		dislikesIcon.classList.add("fa","fa-thumbs-down","feed-post-button");
+
+		dislikesIcon.style.fontSize='1.5em';
+
+		var dislikesNum = document.createElement("i");
+		dislikesNum.classList.add("feed-post-downvotes");
+		dislikesNum.textContent = dislikes;
+
+		var commentIcon = document.createElement("i");
+		commentIcon.classList.add("fa","fa-comment","feed-post-button");
+		commentIcon.style.fontSize='1.5em';
+
+		var commentCount = document.createElement("i");
+		commentCount.classList.add("feed-post-comment-count");
+		commentCount.textContent = commentNum;
+
+
+
+		postFooterContainer.appendChild(likesIcon);
+		postFooterContainer.appendChild(likesNum);
+		postFooterContainer.appendChild(dislikesIcon);
+		postFooterContainer.appendChild(dislikesNum);
+		postFooterContainer.appendChild(commentIcon);
+		postFooterContainer.appendChild(commentCount);
+
+		postFooter.appendChild(postFooterContainer);
+		
 
 		postContainer.appendChild(postFooter);
 

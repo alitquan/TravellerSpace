@@ -9,14 +9,14 @@
 #feed-submit {
 	display:flex;
 	flex:1;
-	background-color: red;
+	background: var(--color2);
 	justify-content: center;
 }
 
 #feed-posts {
 	display:flex;
 	flex: 5;
-	background-color: blue;
+	background-color: var(--color2);
 }
 
 #feed-submit-container {
@@ -61,12 +61,14 @@
 	display:flex; 
 	width: 100%; 
 	justify-content: center;
+
+
 }
 
 #feed-posts-list {
 	display:flex; 
 	flex-direction: column;
-	background-color: white;
+	background-color: var(--color3);
 	width: 80%;
 	min-height: 20em;
 }
@@ -149,6 +151,10 @@
 	border-color: #b2b79a;
 }
 
-.feed-post-down-votes { 
+.feed-post-downvotes, .feed-post-comment-count  { 
 	margin-right: 0.5em;
 } 
+
+
+
+

@@ -7,18 +7,13 @@
 	flex-direction: row;
 	min-height:15em;
 }
-#navigator {
-	color:yellow;
-	width: 15%;
-	display:block;
-	height:10em;
-}
 
 #navigator li {
 	list-style-type:none; 
 }
 .section-content {
-	background-color:orange;
+	background-color: var(--color3);
+	color: var(--color10);
 	width :50%;
 	flex: 1;
 	display: flex;
@@ -54,6 +49,11 @@
 .panel {
 	display:flex;
 	flex-direction: column; 
+}
+
+.panel-toggle a {
+	color: var(--color10);	
+
 }
 
 #about {
@@ -194,11 +194,6 @@
 	border-top: none; 
 }
 
-
-
-
-
-
 .car {
 
 	width: 64px; /* Adjust the width as needed */
@@ -208,3 +203,10 @@
 	display:none;
 }
 
+#navigator {
+	color: black;
+	width: 15%;
+	display:block;
+	height:10em;
+	background-color: var(--color11);
+}

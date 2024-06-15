@@ -38,3 +38,7 @@ sudo systemctl enable mongodb
 --
 == mongodb delete == 
 sudo pacman -Rns mongodb-bin
+========
+----flask_socketio error----
+========
+python3 -m pip install flask_socketio

@@ -17,6 +17,7 @@ collections.Sequence = collections.abc.Sequence
 
 # importing pymongo
 import pymongo
+from bson import json_util
 import collections
 
 
@@ -195,9 +196,6 @@ def getFeed():
         docList.append(x)
         print ("getFeed() -- found record: ",x)
 
-    for item in docList:
-        item["_id"] = str(item["_id"])
-        item["submissionDate"] = item["submissionDate"].isoformat()
 
     output = json.dumps(docList)
 
@@ -234,9 +232,13 @@ def pushFeedPost(user_id, body):
     
     count = col.count_documents({"posted_by":user_id})
     id = str(user_id) + "-" + str(count)
-    current_time = datetime.now()
-    post = { "_id": id, "posted_by": user_id, "body": body, "submissionDate": current_time}
-    pushed = col.insert_one(post)
+    current_time = datetime.now().isoformat();
+    post = { "_id": id, "posted_by": user_id, "body": body, "submittedOn": current_time, "editedOn": current_time, "likes": 0, "dislikes":0, "comments":0 }
+ # Use the json_util to serialize the datetime objects
+    post_serialized = json_util.dumps(post)
+    post_deserialized = json_util.loads(post_serialized)
+    pushed = col.insert_one(post_deserialized)
+
     print(pushed) 
 
 
