@@ -97,16 +97,17 @@
 	flex-direction : column;
 }
 
-#reviews-star {
-	background-color: white;
+.reviews-star {
+	background-color: var(--color2);
 	flex:2;
 	align-content: center;
 }
 
+
 #reviews-box {
 	display: flex;
 	padding: 2em; 
-	background-color: black;
+	background-color: var(--color5);
 	align-content: center;
 	justify-content: center;
 	flex-direction: column;
@@ -116,14 +117,17 @@
 
 #container-reviews-button {
 	display: flex;
+	flex:1;
 	justify-content: center;
 	align-items: center;
-	flex:1;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	background-color: var(--color2);	
 }
 
 #reviews-load {
 	flex-basis: 40%;
-	background-color: #1dbf48;
+	background-color: black;
 }
 
 #reviews-title {
@@ -171,12 +175,12 @@
 
 .reviews-indiv-stars {
 	flex: 1;
-	background-color: red;
+	background-color: var(--color4);
 }
 
 .reviews-indiv-headline {
 	flex: 4;
-	background-color: yellow;
+	background-color: var(--color1);
 }
 
 .reviews-indiv-generic {

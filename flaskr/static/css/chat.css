@@ -2,28 +2,31 @@
     display: flex;
     flex-direction: column; /* Or row, depending on your layout */
     height: 40em; /* Ensure the container fills its parent */
-    border: 2px solid black; /* Just for visualization */
+    background-color:  var(--color11);
+    border: 2px solid var(--color2); /* Just for visualization */
+    border-radius: 6px;
     position: relative;
-    padding: 1em;
+    padding: 1.5em;
 }
 
 .flex-item {
     flex-grow: 1;
-    background-color: blue;
     position:relative;
 }
 
 #chat-box {
     height: 90%;
-    background-color: red;
-    max-height: 30em; /* Set the maximum height of the container */
+    border-radius: 10px;
+    background-color: black;
+    max-height: 30em; 
     overflow-y: auto;
 }
 
 #chat-input {
     display: flex;
+    align-items: center;
     justify-content: center;
-    max-height: 2em;
+    max-height: 4em;
 }
 
 #bar {
@@ -32,10 +35,11 @@
 
 .chat-input-bar {
     margin:.25em;
+    max-height: 2em;
 }
 
 .chat-msg {
    list-style-type: none;
-
+   color: var(--color10);
 } 
 
